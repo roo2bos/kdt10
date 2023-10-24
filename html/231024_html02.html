@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML02</title>
+</head>
+<body>
+    <form >
+        <!-- input 태그 -->
+        <input type="button" value="버튼">
+        <input type="text" placeholder="ID">
+        <input type="password" placeholder="PW">
+        <input type="checkbox" name="fruits" value="apple" checked>apple
+        <input type="checkbox" name="fruits" value="banana">banana
+        <input type="radio" name="gender" value="man" checked>남자
+        <input type="radio" name="gender" value="woman">여자
+
+        <input type="date" name="calendar">
+        <input type="datetime-local" name="calendar">
+        <select name="" id="">
+            <optgroup label="커피">
+                <option value="americano">아메리카노</option>
+                <option value="latte" selected>카페라떼</option>
+                <option value="vanilla">바닐라라떼</option>
+            </optgroup>
+            <optgroup label="주스">
+                <option value="apple">사과</option>
+                <option value="orange">오랜지</option>
+                <option value="banana">바나나</option>
+                <option value="banana" disabled>안먹음</option>
+            </optgroup>
+        </select>
+    </form>
+        
+    <hr>
+    <!-- table -->
+    <table border="1" cellspacing="0" cellpadding="5" width="300" height="100" align="center">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>전화번호</th>
+        </tr>
+        <tr>
+            <td colspan="2">홍길동</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td rowspan="2">임꺽정</td>
+            <td>200</td>
+            <td>01098765432</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td>01098765432</td>
+        </tr>
+    </table>
+
+</body>
+</html>
