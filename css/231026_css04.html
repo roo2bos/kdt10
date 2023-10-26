@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css04 : 폰트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'iceJaram-Rg';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body{font-size: 40px;}
+        .box{
+            width: 200px;height: 40px;font-size: 20px;
+            font-weight: 400;line-height: 40px;text-align: center;
+            background-color: yellow;
+        }
+        .google{font-family: "Bagel Fat One",cursive;}
+        .noon{font-family: iceJaram-Rg,serif;}
+    </style>
+</head>
+<body>
+    <!-- line-hegiht -->
+    <div class="box">
+        text
+    </div>
+
+    <!-- font-family -->
+    <p class="google">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam iure nulla, obcaecati qui itaque quia iste, nobis consectetur modi, velit adipisci voluptatum. Corrupti ullam alias cupiditate libero magnam voluptate aut.</p>
+    <p class="noon">텍스트, Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis molestiae libero assumenda tempora, magni cum perspiciatis maiores accusamus et necessitatibus incidunt dolores inventore. Officiis deserunt eius quibusdam earum nisi. Nulla!</p>
+</body>
+</html>
