@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS style 수업</title>
+    <style>
+        html,body{height: 100%;}
+        body{margin: 0;font-size: 14px;line-height: 1.6;background-color: #ddd;}
+        input{margin: 0;}
+        input[type="radio"],
+        input[type="checkbox"]{margin-top: -3px;width: 16px;height: 16px;vertical-align: middle;}
+        
+        .wrap{height: calc(100% - 70px);overflow: auto;border: 5px solid #ddd; padding: 10px 10px 50px;background-color: #fff;}
+        h1{font-size: 30px;line-height: 1;color: green;padding-bottom: 10px;border-bottom: 1px solid silver;}
+        h1+p{color: #888;}
+        h3:first-child{margin-top: 40px;}
+        h3~h3{margin-top: 40px;}
+        strong{color: #000;}
+        em{font-style: normal;color: red;}
+
+        .inputs,
+        .inputs li{margin: 0;padding: 0;list-style: none;}
+        .inputs li{margin: 5px 0 0;}
+        .inputs li::before{content:"";display: inline-block;margin-top: -5px;margin-right: 5px;width: 5px;height: 5px;background-color: #000;border-radius: 50%;vertical-align: middle;}
+        .inputs label{display: inline-block;width: 50px;}
+        p label{margin-right: 5px;color: #888;}
+        p input:checked+label{color: #000;}
+        input,
+        textarea{padding: 5px;border-radius: 5px;border: 1px solid silver;}
+        textarea{width: calc(100% - 10px);background-color: #eee;}
+        
+        input[type="submit"]{font-size: 16px;padding:10px 40px;color: #fff;background-color: green;border-radius: 0;}
+        .note{display: inline;margin-left: 20px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>강의 만족도 설문조사</h1>
+        <p>추첨을 통해 <strong>스타벅스 아메리카노 1잔</strong> <em>쿠폰을 무료</em>로 발송해 드립니다.</p>
+        <!-- form 태그 -->
+        <form >
+            <h3>기본 정보</h3>
+            <ul class="inputs">
+                <li><label for="name">이름</label><input type="text" id="name" placeholder="이름을 입력해주세요"></li>
+                <li><label for="email">이메일</label><input type="email" id="email" placeholder="love@example.com"></li>
+            </ul>
+
+            <h3>나이</h3>
+            <p>
+                <input type="radio" id="age10" name="age" value="10" checked> <label for="age10">10대</label>
+                <input type="radio" id="age20" name="age" value="20"> <label for="age20">20대</label>
+                <input type="radio" id="age30" name="age" value="30"> <label for="age30">30대</label>
+                <input type="radio" id="age40" name="age" value="40"> <label for="age40">40대</label>
+                <input type="radio" id="age50" name="age" value="50"> <label for="age50">50대</label>
+                <input type="radio" id="age60" name="age" value="60"> <label for="age60">60대 이상</label>
+            </p>
+            
+            <h3>원하는 강의(복수 응답가능 합니다.)</h3>
+            <p>
+                <input type="checkbox" id="html" name="lecture" value="html" checked> <label for="html">html</label>
+                <input type="checkbox" id="js" name="lecture" value="js"> <label for="js">javascript</label>
+                <input type="checkbox" id="css" name="lecture" value="css"> <label for="css">css</label>
+            </p>
+            <textarea name="comment" cols="30" rows="10" placeholder="하고 싶은 말을 써주세요 :)"></textarea>
+            
+            <input type="submit" value="제출">
+            <p class="note">* 제출 후 수정이 불가 합니다.</p>
+        </form>
+    </div>
+</body>
+</html>

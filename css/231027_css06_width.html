@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css06 : width & height</title>
+    <style>
+        .border{width: 200px;height: 200px;margin: 10px;
+            border: 2px solid #000;
+            border: 2px dotted red;
+        }
+        .box-sizing{width: 100px;height: 100px;padding: 20px;border: 15px solid red;background-color: orange;}
+
+        .square{width: 100px;height: 100px;border: 1px solid #000;display: inline-block;}
+        .d-none{display: none;background-color: red;}
+        .invisible{visibility:hidden;background-color: orangered;}
+        .opacity-0{opacity: 0;background-color: tomato;}
+    </style>
+</head>
+<body style="margin: 0;">
+    <div style="background-color: aqua;width: 100px;height: 100px;"></div>
+    <div style="background-color: aquamarine;width: 100vw;height: 100px;"></div>
+
+    <hr>
+    <!-- max, min -->
+    <div style="background-color: orange;width: calc(30vw - 100px);height: 30vw;max-width: 300px;min-width: 200px;"></div>
+
+    <hr>
+    <!-- border -->
+    <div class="border"></div>
+    <div class="border" style="border-radius: 10px;"></div>
+    <div class="border" style="border-radius: 10px 20px 0 30%;"></div>
+    <div class="border" style="border-radius: 50%;"></div>
+
+    <hr>
+    <!-- box-sizing -->
+    <div class="box-sizing" style="box-sizing: content-box;">content-box</div>
+    <div class="box-sizing" style="box-sizing: border-box;">border-box</div>
+
+    <!-- visibility -->
+    <div class="square">original</div>
+    <div class="square d-none">d-none</div>
+    <div class="square invisible">invisible</div>
+    <div class="square opacity-0">opacity-0</div>
+    <div class="square ">original</div>
+
+    <hr>
+    <!-- overflow -->
+    <div class="square" style="overflow: scroll;">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores consequatur, id eum nemo iure magni ducimus facilis nostrum tempora commodi recusandae dolorem aliquam doloribus unde adipisci et velit quisquam obcaecati.
+        Esse provident quas dolor et, accusantium cumque hic fuga inventore omnis dolore placeat iure, reiciendis temporibus deleniti, quibusdam molestias totam nobis laborum pariatur. Ipsam, perferendis! Corporis nemo optio doloremque incidunt.
+        Sed adipisci cupiditate excepturi ipsa recusandae! Nostrum nulla assumenda in asperiores quaerat, ex ipsa ratione dignissimos omnis fugiat minima tenetur, cum ad consectetur molestiae harum fugit ea quas tempore maxime!
+    </div>
+    <div class="square" style="overflow:auto">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores consequatur, id eum nemo iure magni ducimus facilis nostrum tempora commodi recusandae dolorem aliquam doloribus unde adipisci et velit quisquam obcaecati.
+        Esse provident quas dolor et, accusantium cumque hic fuga inventore omnis dolore placeat iure, reiciendis temporibus deleniti, quibusdam molestias totam nobis laborum pariatur. Ipsam, perferendis! Corporis nemo optio doloremque incidunt.
+        Sed adipisci cupiditate excepturi ipsa recusandae! Nostrum nulla assumenda in asperiores quaerat, ex ipsa ratione dignissimos omnis fugiat minima tenetur, cum ad consectetur molestiae harum fugit ea quas tempore maxime!</div>
+</body>
+</html>
