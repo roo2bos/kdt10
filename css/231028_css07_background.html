@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css07 : background</title>
+    <style>
+        body{background-image: url(https://scontent-gmp1-1.xx.fbcdn.net/v/t39.30808-6/361095634_598227319170383_6713441621796126380_n.png?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=eYQsugimij0AX9KIC_u&_nc_ht=scontent-gmp1-1.xx&oh=00_AfBAPpWhWIfdmP5DCoCoMcVzvOlBXMGCabTPEM2pwWD6xQ&oe=6541CA29);background-repeat: no-repeat;
+        background-attachment: fixed;
+        }
+        div{
+            width: 500px;height: 500px;
+            background-color: orange;
+        }
+        .background-img{
+            background-image: url(https://item.kakaocdn.net/do/d84248170c2c52303db27306a00fb861f604e7b0e6900f9ac53a43965300eb9a);
+
+            /* background-repeat */
+            /* background-repeat: repeat;
+            background-repeat: repeat-x;
+            background-repeat: repeat-y; */
+            background-repeat: no-repeat;
+
+            /* background-position */
+            /* background-position: left;
+            background-position: right top;
+            background-position: center;
+            background-position: 10px 100px; */
+            background-position: 10px 10px;
+
+            /* background-size */
+            background-size: auto; /* default */
+            background-size:100px;
+
+        }
+        .background-attach{
+            width: 300px;height: 300px;
+            overflow: scroll;
+            background-image: url(https://item.kakaocdn.net/do/d84248170c2c52303db27306a00fb861f604e7b0e6900f9ac53a43965300eb9a);
+
+
+            /* background-attachment */
+            /* background-attachment: local; */
+            background-attachment: scroll;
+            /* background-attachment: fixed; */
+
+        }
+    </style>
+</head>
+<body style="margin: 0;">
+    <!-- <div class="background-img"></div> -->
+    <hr>
+    <div class="background-attach">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit itaque ducimus ipsum dignissimos optio impedit, amet non animi aperiam, consequuntur iure asperiores? Numquam quam dolor nostrum sint quod, cumque maxime.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit itaque ducimus ipsum dignissimos optio impedit, amet non animi aperiam, consequuntur iure asperiores? Numquam quam dolor nostrum sint quod, cumque maxime.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit itaque ducimus ipsum dignissimos optio impedit, amet non animi aperiam, consequuntur iure asperiores? Numquam quam dolor nostrum sint quod, cumque maxime.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit itaque ducimus ipsum dignissimos optio impedit, amet non animi aperiam, consequuntur iure asperiores? Numquam quam dolor nostrum sint quod, cumque maxime.</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css07: flex</title>
+    <style>
+        .container{margin-top: 20px;
+            width: 500px;height: 500px;
+            display: flex;
+            border: 1px solid #000;
+        }
+        .container:nth-child(2){
+            flex-direction: row-reverse;
+        }
+        .container:nth-child(3){
+            flex-direction: column;
+        }
+        .container>div{
+            width: 100px;height: 100px;
+            background-color: red;
+        }
+        .container>div:nth-child(2n){background-color: yellow;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>item1</div>
+        <div>item2</div>
+        <div>item3</div>
+    </div><!-- //container -->
+    <div class="container">
+        <div>item1</div>
+        <div>item2</div>
+        <div>item3</div>
+    </div><!-- //container -->
+
+    <div class="container">
+        <div>item1</div>
+        <div>item2</div>
+        <div>item3</div>
+    </div><!-- //container -->
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css07 : flex</title>
+    <style>
+        .container{
+            margin-top: 20px;
+            background-color: green;
+            width: 500px;height: 300px;
+            display: flex;
+            /* flex-direction: row;
+            flex-direction: row-reverse;
+            flex-direction: column;
+            flex-direction: column-reverse; */
+        }
+        .container>div{
+            width: 100px;height: 100px;      background-color: red;
+            font-size: 40px;line-height: 100px;text-align: center;
+        }
+        .container>div:nth-child(2n){background-color: yellow;}
+        
+        .container:nth-child(2){
+            justify-content: flex-end;
+        }
+        .container:nth-child(3){
+            justify-content: center;
+        }
+        .container:nth-child(4){
+            justify-content: space-between;
+        }
+        .container:nth-child(5){
+            justify-content: space-around;
+        }
+        .container:nth-child(6){
+            flex-wrap: wrap;
+            align-items: flex-start;
+            /* align-items: flex-end; */
+            /* align-items: center; */
+            align-content: stretch;
+            align-content: flex-start;
+            align-content: flex-end;
+        }
+        .container:nth-child(6)>div:nth-child(1){
+            /* height: 200px; */
+        }
+    </style>
+</head>
+<body style="margin: 0;">
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+        <div class="item4">4</div>
+        <div class="item5">5</div>
+        <div class="item6">6</div>
+    </div>
+
+    <!-- justify-content:flex-end -->
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+    </div>
+
+    <!-- justify-content:center -->
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+    </div>
+    
+    <!-- justify-content:space-between -->
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+    </div>
+
+    <!-- justify-content:space-arround -->
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+    </div>
+
+    <!-- align-items: -->
+    <div class="container">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+        <div class="item4">4</div>
+        <div class="item5">5</div>
+        <div class="item6">6</div>
+        <div class="item7">7</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css07: position1</title>
+    <style>
+        .wrap{
+            width: 500px;height: 500px;
+            position: relative;
+            border: 2px solid #000;
+        }
+        [class*=item] {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        .item {
+            background-color: red;
+        }
+        .item1 {
+            position: relative;
+            left: 50px;
+            top: 30px;
+            background-color: orange;
+        }
+        .item2 {
+            position: absolute;
+            right: 30px;
+            bottom: 100px;
+            background-color: yellow;
+        }
+        .item3 {
+            position: fixed;
+            right: 100px;
+            top: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <div class="item"></div>
+    
+        <div class="item1">item1</div>
+        <div class="item2">item2</div>
+    </div>
+    <div class="item3">item3</div>
+</body>
+</html>
