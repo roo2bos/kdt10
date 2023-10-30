@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css08 : animation</title>
+    <style>
+        .wrap{width: 150px;height: 150px;border: 1px solid #000;}
+        .circle {
+            background-color: pink;
+            border-radius: 50%;
+            width: 50px;height: 50px;
+            animation: circle 3s 0s ease 6;
+        }
+        @keyframes circle{
+            0%,100%{transform:translate(0, 0);}
+            25%{transform:translate(100px,0);}
+            50%{transform:translate(100px, 100px);}
+            75%{transform:translate(0, 100px);}
+        }
+        .text {
+            width: 100%;
+            animation: text 3s 0s ease;
+        }
+        @keyframes text{
+            0%{width:300%;transform:translate(100%, 0);}
+            100%{width:100%;transform:translate(0, 0);}
+        }        
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="circle"></div>
+</div>
+<hr>
+<div class="text">
+    “As I relax on the sofa and gaze around a room a thought hits me: this is exactly the place I’ve been looking for all my life. A little hideaway in some sinkhole somewhere. I’d always thought of it as a secret, imaginary place, and can barely believe that it actually exists. I close my eyes and take a breath, and wonder of it all settles over me like a gentle cloud.”
+</div>
+</body>
+</html>

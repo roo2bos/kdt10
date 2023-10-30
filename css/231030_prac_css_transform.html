@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css08 : transform</title>
+    <style>
+        /* img{transform: rotateY(45deg);} */
+        .wrap{display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;background-color: skyblue;}
+        .wrap > div {
+            margin-top: -25px;
+        }
+        img{position: relative;width: 100px;margin:0 -10px;transform:skewY(25deg);border: 1px solid #000;}
+        img:nth-child(1) {
+            transform: translateY(20px) skewY(25deg);
+            z-index: 3;
+        }
+        img:nth-child(2) {
+
+            transform: translateY(10px) skewY(25deg);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="wrap">
+    <div>
+        <img src="https://t1.kakaocdn.net/thumb/R1920x0.fwebp.q100/?fname=https%3A%2F%2Ft1.kakaocdn.net%2Fkakaocorp%2Fkakaocorp%2Fadmin%2Fservice%2Fa85d0594017900001.jpg" alt="">
+        <img src="https://t1.kakaocdn.net/thumb/R1920x0.fwebp.q100/?fname=https%3A%2F%2Ft1.kakaocdn.net%2Fkakaocorp%2Fkakaocorp%2Fadmin%2Fservice%2Fa85d0594017900001.jpg" alt="">
+        <img src="https://t1.kakaocdn.net/thumb/R1920x0.fwebp.q100/?fname=https%3A%2F%2Ft1.kakaocdn.net%2Fkakaocorp%2Fkakaocorp%2Fadmin%2Fservice%2Fa85d0594017900001.jpg" alt="">
+    </div>
+</div>
+</body>
+</html>
