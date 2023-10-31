@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>variable</title>
+    <script>
+        // 자료형
+        // - 기본
+        //     - string
+        //     - number
+        //     - boolean
+        //     - null
+        //     - undefined
+        // - 객체
+        //     1. string
+        let myName = '홍길동';
+        let email = 'gildong@naver.com';
+        let city = '서울';
+
+        console.log(myName, email, city)
+
+        //문자와 변수를 동시에 출력
+        console.log('내 이름은', myName , '입니다')
+        console.log('내 이름은 ' + myName + '입니다')
+        //백틱 (``)
+        console.log(`내 이름은 ${myName} 입니다`)
+        let gildong=`내 이름은 ${myName} 입니다`;
+        console.log(gildong)
+        // 2. number
+        let number = 123;
+        let opacity = 0.7;
+        console.log(number, opacity);
+        // NaN : Not a Number
+        console.log('apple' - 3); // NaN
+        console.log('120' - 3); // console.log에서 형 변환하여 120으로 출력
+
+        // 3.boolean
+        let checked = true;
+        let isShow = false;
+        console.log(checked, isShow);
+
+        // 4.undefinded
+        let undef;
+        console.log(undef);
+
+        // 5. null
+        let empty = null;
+        console.log(empty);
+
+        // 6. array
+        let fruits = ['orange', 'pineapple','grape','apple'];
+        let data = [1, 'gildong',false, null,undefined];
+        console.log(fruits[0], data[2]);
+
+        // 2차원 배열 : [ [], [], [] ]
+
+        //배열 함수
+        fruits.push('banana');
+        console.log(fruits);
+        fruits.pop();
+        console.log(fruits);
+        fruits.unshift('mango')
+        console.log(fruits);
+        fruits.shift()
+        console.log(fruits);
+        console.log(fruits.indexOf('apple'));//위치 찾기
+        console.log(fruits.includes('peach'));//매개변수의 유무 체크
+
+        //실습1
+        let rainbow = ['red', 'orange','yellow','green', 'blue', 'navy', 'purple'];
+
+        console.log(rainbow[2]);//2번째 배열 찾기
+        rainbow.push('black');// 블랙 색상 추가
+        console.log(rainbow);// 색상 출력
+        console.log(rainbow.indexOf('black'));// 블랙 찾기
+        console.log(rainbow.reverse());// 반전 출력
+
+        // 7. object
+        let cat = {
+            name:'나비',
+            age:1,
+            isCute:true,
+
+            //함수도 객체 안에 넣을 수 있음
+            mew:function(){
+                console.log('냐옹')
+            }
+        }
+        console.log(cat);
+        console.log(cat.name);
+        console.log(cat.age);
+        console.log(cat.isCute);
+        console.log(cat.mew());
+
+        //실습2
+        let student = {
+            name:'김상호',
+            hobby:'자전거 타기',
+            level:'초보',
+            lesson:'js'
+        }
+
+        console.log('배열 : ',student);
+        console.log('이름 : '+student.name);
+        console.log('취미 : '+student.hobby);
+        console.log('나의 수준 : '+student.level);
+        console.log('수업 : '+student.lesson);
+
+        // typeof
+        console.log(typeof "문자")
+        console.log(typeof 123)
+        console.log(typeof true)
+        console.log(typeof cat)
+        console.log(typeof fruits)
+        console.log(typeof null)
+        console.log(typeof undefined)
+        console.log('typeof를 array나 null에 사용하면 object결과를 얻을 수 있다.')
+
+        let num=1;
+        let str='string';
+        let bool=true;
+        let null2=null;
+        console.log(`${typeof num} isn't ${typeof str} data type.`);
+        console.log(`typeof를 boolean이나 null에 사용하면, ${typeof bool}이나 ${typeof null2} 결과를 얻을 수 있다.`)
+
+
+        // 형 변환
+        // let mathScore1 = prompt('수학 점수를 입력해주세요.');//문자(열)로 받음
+        // let engScore1 = prompt('영어 점수를 입력해주세요.');//문자(열)로 받음
+        // let avg1 = (mathScore1 + engScore1) / 2;
+        // console.log(avg1);
+
+        //1. 값 -> 문자 String()
+        let str1=true;
+        let str2=123;
+        let str3=null;
+        console.log(typeof String(str1));
+        console.log(typeof String(str2));
+        console.log(typeof str2.toString());
+        // console.log(typeof str3.toString());
+
+        //2. 값 -> 숫자 Number()
+        let n1= true;
+        let n2=false;
+        let n3="123.9";
+        console.log(typeof Number(n1));
+        console.log(typeof Number(n3));
+        console.log(typeof Number(n2));
+        console.log(typeof Number('hello'));
+
+        console.log(Number(n1));
+        console.log(Number(n2));
+        console.log(Number(n3));
+        console.log(Number('hello'));
+
+        //숫자로 형 변환
+
+        // 실습
+        // let mathScore = Number(prompt('수학 점수를 입력해주세요.'));
+        // let engScore = Number(prompt('영어 점수를 입력해주세요.'));
+        // let avgScore = (mathScore + engScore) / 2;
+        // console.log(`수학(${mathScore}점), 영어(${engScore}점) 평균은 : `,avgScore);
+
+        let mathScore = Number("77");
+        let engScore = Number("88");
+        let avgScore = (mathScore + engScore) / 2;
+        console.log(`수학(${mathScore}점), 영어(${engScore}점) 평균은 : `,avgScore);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

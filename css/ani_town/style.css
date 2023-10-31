@@ -88,9 +88,9 @@ section .city .city_img {
     text-align: center;}
 section{
     background-color: #636888;
-    animation: weather 18s infinite;
+    animation: sky 18s infinite;
 }
-@keyframes weather {
+@keyframes sky {
     0%,100%{
         background-color: #636888;
     }
