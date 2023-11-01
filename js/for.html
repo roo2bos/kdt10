@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for</title>
+    <script>
+
+    </script>
+</head>
+<body>
+    <button onclick="xx()">13 배수</button>
+    <button onclick="gugu()">구구단</button>
+    <button onclick="n()">N</button>
+    <div class="text"></div>
+
+    <script>
+        //for
+        /* for(let i = 0; i < 10; i++){
+            //초기화: i를 0으로 셋팅
+            //조건식: i가 10 보다 작을때
+            //증감식: i를 1씩 키우겠다.
+            console.log("i : "+i)//i: 0 ~ 9
+        } */
+        /* for(let i = 1; i < 10; i+=2){// i=i+2
+            //초기화: i를 0으로 셋팅
+            //조건식: i가 10 보다 작을때
+            //증감식: i를 1씩 키우겠다.
+            console.log("i : "+i)//i: 0 ~ 9
+        } */
+
+
+        /* 
+        //풀이
+        for(let i= 0;i<10000; i=i+13){
+            if(i% 2==1) console.log(i)
+        }
+        for(let i= 0;i<10000; i+=i){
+            if(i%13==0 && i % 2==1) console.log(i)
+        } 
+        */
+
+
+        //실습
+        let $div = document.querySelector(".text");
+        let txt = "";
+        for(let i = 1; i< 10000; i++){
+            if(i%3 == 0){
+                txt += i+", ";
+            }
+        }
+        $div.innerHTML=txt;
+        function xx(){
+            //13 배수 이면서 홀수 구하기
+            let num = Number(prompt('배수 확인하기 : 숫자 입력'));
+            if(num%13 == 0){
+                if((num/13)%2){
+                    alert('배수 홀수');
+                }else{
+                    alert('배수 짝수');
+                }
+            }else{
+                alert('배수 아님')
+            }
+        }
+        function gugu(){
+            for(let i =2; i <10; i++){
+                console.log('--[ '+i+'단 ]--');
+                for(let j=1; j<10; j++){
+                    console.log(i+'*'+j+"="+i*j);
+                }
+            }
+        }
+
+        //while문
+        /* let i = 0;
+        while(i<5){
+            console.log(`white i : ${i}`);
+            i++;
+            break;
+        } */
+        /* 
+        let i=0;
+        while(true){
+            console.log('white true i:', i);
+            i++;
+            if(i>10){
+                break;
+            }
+        } */
+
+        //break
+        for(let i = 0; i < 100; i++) {
+            if(i==10) {
+                console.log("멈춰!");
+                break; 
+            }
+            console.log(i);
+        }
+        //continue
+        for(let i = 0; i < 15; i++) {
+            if(i==10) {
+                console.log("멈추지마!");
+                continue; 
+                console.log("멈추지마2!");
+            }
+            //ㅑ==10일때는 continue밑에 코드는 
+            console.log(i);
+        }
+
+        
+        //실습
+
+
+
+        /* 
+        //풀이 : 
+        function n(){
+            let n = Number(prompt("2 또는 3의 정수 입력"));
+            let sum=0;
+            for(let i=0; i< n; i++){
+                if(n<= 0 || n >= 100){
+                    alert('잘못 입력 하였습니다');
+                    break;
+                }
+                else{
+                    if(i%2==0 || i%3==0) sum+=i;
+                }
+            }
+            console.log(`sum :`,sum);
+
+            //while문
+            let sum2=0;
+            let i=0;
+            while(i<n){
+                if(i%2 == 0 || i%3 == 0) sum2 +=i;
+                i++
+            }
+        } 
+        */
+        /* function n(){
+            let n = Number(prompt("2 또는 3의 정수 입력"));
+            let result=0;
+            if(n>1 && n <4){
+                for(let i=0; i< 100; i++){
+                    if(i%n == 0){
+                        console.log(i);
+                        result += i;
+                    }
+                }
+                alert(result);
+            }else{
+                alert('잘못 입력 하였습니다');
+            }
+        } */
+
+        function n(){
+            let n = Number(prompt("정수 입력(단! 0 < n < 100)"));
+            let sum=0;
+            for(let i=0; i< n; i++){
+                if(n<= 0 || n >= 100){
+                    alert('잘못 입력 하였습니다');
+                    break;
+                }
+                else{
+                    if(i%2==0 || i%3==0) sum+=i;
+                }
+            }
+            console.log(`sum :`,sum);
+
+            //while문
+            /* let sum2=0;
+            let i=0;
+            while(i<n){
+                if(i%2 == 0 || i%3 == 0) sum2 +=i;
+                i++
+            } */
+        } 
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if</title>
+    <script>
+        /* if(조건1){
+            조건1이 참일때 실행할 코드
+        }else if(조건2){
+            조건2가 있다면 작성, 조건2가 참일때 실행할 코드
+        }else{
+            위의 모든 조건들이 거짓일 때 실행할 코드
+        } */
+        // if(3>5){
+        //     console.log('3 > 5')
+        // }else{
+        //     console.log('3 <= 5')
+        // }
+        // let name='lee';
+        // if(name=='kim'){
+        //     console.log('name: kim')
+        // }else if(name=='lee'){
+        //     console.log('name: lee')
+        // }else{
+        //     console.log('name: kimX, leeX')
+        // }
+        function if_s(){
+            let promp = prompt('[나이,성별(남,여)] 입력');
+            let age = Number(promp.split(",")[0]);
+            let gander = promp.split(",")[1];
+            if(age>=20){
+                if(gander=='남'){
+                    console.log('성인 남');
+                }else{
+                    console.log('성인 여');
+                }
+            }else if(age < 20 && age >=17){
+                if(gander=='남'){
+                    console.log('고등학생 남');
+                }else{
+                    console.log('고등학생 여');
+                }
+            }else if(age < 17 && age >=14){
+
+                if(gander=='남'){
+                    console.log('중학생 남');
+                }else{
+                    console.log('중학생 여');
+                }
+            }else if(age < 14 && age >=8){
+
+                if(gander=='남'){
+                    console.log('초등학생 남');
+                }else{
+                    console.log('초등학생 여');
+                }
+            }else{
+                if(gander=='남'){
+                    console.log('유아 남');
+                }else{
+                    console.log('유아 여');
+                }
+            }
+
+            /*
+                let age=promp('나이')
+                let gender=promp('성별')
+                if(gender>='남'){
+                    if(age>=20){
+                        console.log('성인 남');
+                    }else if(age < 20 && age >=17){
+                        console.log('고등학생 남');
+                    }else if(age < 17 && age >=14){
+                        console.log('중학생 남');
+                    }else if(age < 14 && age >=8){
+                        console.log('초등학생 남');
+                    }else{
+                        console.log('유아 남');
+                    }
+                }else{
+                    if(age>=20){
+                        console.log('성인 여');
+                    }else if(age < 20 && age >=17){
+                        console.log('고등학생 여');
+                    }else if(age < 17 && age >=14){
+                        console.log('중학생 여');
+                    }else if(age < 14 && age >=8){
+                        console.log('초등학생 여');
+                    }else{
+                        console.log('유아 여');
+                    }
+                } 
+            */
+
+        }
+        
+        /* switch ( 변수 ) { 
+            case 값1:
+            // 변수와 값1이 일치하면 실행
+            break; case 값2:
+            // 변수와 값2가 일치하면 실행
+            break; default:
+            //일치하는 값이 없을 때 실행
+            break; 
+        } */
+        let name= 'lee'
+        switch(name){
+            case "kim":
+                console.log('name은 kim입니다');
+                break;
+            case "lee":
+                console.log('name은 lee입니다');
+                break;
+            default:
+                console.log('name은 kim아니고 lee 아닙니다');
+        }
+
+        //3항 연산자
+        if(name=='lee'){
+            console.log('name == lee')
+        }else{
+            console.log('name != lee')
+        }
+        name == 'lee'? console.log('name == lee') : console.log('name != lee') ;
+        name == 'kim'? console.log('name == kim') : 
+        name == 'lee'? console.log('name != kim && name == lee') : console.log('name != kim && name != lee');
+
+        function time(){
+            let now = new Date().getHours();
+            (now >= 0 && now) < 12 ? console.log('오전') : console.log('오후');
+            console.log(now)
+        }
+        time();
+    </script>
+</head>
+<body>
+    <button onclick="if_s()">나이</button>
+</body>
+</html>
