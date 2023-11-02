@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array for문</title>
+    <script>
+        let numbers = [1, 2, 3, 4, 5, 6];
+        let fruits = ["apple", "banana", "orange", "melon", "grape"];
+
+        console.log('---- for basic ----');
+        for(let i=0;i<fruits.length;i++){
+            console.log(fruits[i]);
+        }
+
+        console.log('---- for of ----');
+        //for of
+        for(let fruit of fruits){
+            console.log(fruit);
+        }
+
+        console.log('---- for each ----');
+        //forEach
+        fruits.forEach((fruit,i,arr)=>{
+            console.log('fruit:',fruit)
+            console.log('index:',fruit)
+            console.log('arr:',fruit)
+        });
+        console.log('---- for each in 1 value ----');
+        fruits.forEach((fruit,i,arr)=>{
+            console.log('fruit:',fruit)
+        });
+
+        //filter
+        console.log('---- filter ----');
+        let filterResult = fruits.filter((fruit)=>{
+            return fruit.includes('p');
+        });
+        let filterResult2 = fruits.filter(fruit=>fruit.includes('p'));//축약
+        console.log('filterResult:',filterResult);
+        console.log('filterResult2:',filterResult2);
+
+        //실습
+        let numArr=[];
+        for(let i=1;i<=100;i++){
+            numArr.push(i);
+        }
+        console.log(numArr);
+        let sum1=0;
+        for(let i=1;i<=numArr.length;i++){
+            sum1+=i;
+        }
+        console.log(sum1);
+
+        let sum2=0;
+        for(let num of numArr){
+            sum2+=num;
+        }
+        console.log(sum2);
+
+        let sum3=0;
+        numArr.forEach((num,i,arr)=>{
+            sum3+=num;
+        });
+
+        console.log(sum3);
+
+        //실습:같은거끼리 묶고 다른거끼리 묶고
+        let fruits1 = ["사과", "딸기", "파인애플", "수박", "참외", "오렌지", "자두", "망고"]; 
+        let fruits2 = ["수박", "사과", "참외", "오렌지", "파인애플", "망고"];
+        let same=[];
+        let diff=[];
+        
+        //filter:
+        // let same = fruits1.filter((fruit) => fruits2.includes(fruit));
+        // let diff = fruits1.filter((fruit) => !fruits2.includes(fruit));
+        
+        //for :
+        for(let i=0;i<fruits1.length;i++){
+            if(fruits2.includes(fruits1[i])){
+                same.push(fruits1[i])
+            }else{
+                diff.push(fruits1[i])
+            }
+        }
+
+        console.log(same);
+        console.log(diff);
+
+        //퀴즈 
+        let n = 10;
+        for(let i=0;i<=10;i++){
+            if(i%2 == 0) {
+                console.log('짝',i);
+            }else{
+                console.log('홀',i)
+            }
+        }
+        //answer=num%2==0?'even':'odd';
+
+        
+        /*
+        //수박수박수... N숫자만큼 나타나게
+        function solution(n) {
+            let answer = '';
+            let arr = [];
+            const text = '수박';
+            for(let i=0;i<n;i++){
+                arr.push(text.split('')[i%2]);
+            }
+            answer=arr.join('');
+            return answer;
+        }
+        solution(3);  */
+        //수박수 풀이:
+        function solution(n) {
+            let answer = '';
+            /* 
+            //for문 방식:
+            for(let i=1;i<=n;i++){
+                i%2 == 1? answer+='수' : answer+='박';
+            } */
+
+            let watermelon='수박';
+            /* 
+            //repeat 방식:
+            answer=watermelon.repeat(Number(n)).slice(0,n) */
+
+            let repNum=Number(n)/2;
+            //n:2;
+            //n:3;
+            answer=watermelon.repeat(repNum);
+            if(n%2==1) answer+='수';
+            return answer;
+        }
+
+
+        
+        //약수 합. 8이면 1 2 4 8 = 15
+        function solution(n) {
+            let answer = 0;
+            for(let i=1;i<=n;i++){
+                if(n%i==0) answer += i;
+            }
+            return answer;
+        }
+
+        
+        //자릿수 더하기
+        /* function solution(n) {
+            let answer = 0;
+            let arr= String(n).split('');
+            for(i in arr){
+                answer+=Number(arr[i]);
+            }
+            return answer;
+        }
+
+        console.log(solution(123)) */
+        //자릿수 더하기 풀이:
+        function solution(n) {
+            let answer = 0;
+            // 숫자 -> 문자열 배열 (for문 반복)
+            // let arr = String(n).split("");
+            // arr = ['1', '2', '3'];
+            // forEach문
+            // arr.forEach((a) => answer += Number(a));
+            // for문
+            // for(let i = 0; i < arr.length; i++) {
+            //     answer += Number(arr[i]);
+            // }
+            
+            // 숫자로 계산 시
+            while( n >= 10) {
+                // 123 % 10 => 3
+                answer += n % 10; // 일의 자리
+                n = parseInt(n / 10); // parseInt: 숫자로 바꾼 값에서 정수값만
+                // '123.1' -> parseInt : 123, Number : 123.1
+            }
+            answer += n;
+            return answer;
+        }
+
+        // N에 없는 숫자 더하기(1~9까지 숫자중 N배열에 없는 숫자 더하기)
+        function solution(numbers) {
+            let answer = 0;
+            for(let i=0;i<10;i++){
+                if(!numbers.includes(i)) answer+=i;
+            };
+            return answer;
+        }
+        console.log(solution([1,2,3,4,6,7,8,0]));
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -110,8 +110,7 @@
 
         
         //실습
-
-
+        //정수 n이 있을 때 2또는 3의 배수의 총합을 구하시오. (단, n은 0 < n < 100 )
 
         /* 
         //풀이 : 
@@ -158,23 +157,34 @@
             let n = Number(prompt("정수 입력(단! 0 < n < 100)"));
             let sum=0;
             for(let i=0; i< n; i++){
-                if(n<= 0 || n >= 100){
+                if(n <= 0 || n >= 100){//0은 false라서 진입을 하지 않음.
                     alert('잘못 입력 하였습니다');
                     break;
-                }
+                } 
                 else{
-                    if(i%2==0 || i%3==0) sum+=i;
+                    if(i%2==0 || i%3==0) {
+                        console.log(i);
+                        sum+=i;
+                    }
                 }
             }
+            // 10 입력시 
+            // 2의 배수 : 2 4 6 8
+            // 3의 배수 : 3 6 9
+            // 6은 중복이라서 한번만, 2 3 4 6 8 9 = 32
             console.log(`sum :`,sum);
 
             //while문
             /* let sum2=0;
             let i=0;
             while(i<n){
-                if(i%2 == 0 || i%3 == 0) sum2 +=i;
-                i++
-            } */
+                if(i%2 == 0 || i%3 == 0) {
+                    sum2 +=i;
+                    console.log(i)
+                }
+                i++;
+            }
+            console.log(`합`+sum2) */
         } 
     </script>
 </body>
