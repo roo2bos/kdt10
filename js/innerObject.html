@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표준 내장 객체</title>
+    <script>
+        //표준 내장 객체
+        //자바스크립트가 기본적으로 가지고 있는 객체
+
+        //1. Date
+        let now = new Date();
+        console.log(now);
+        console.log(now.getFullYear(),'년');
+        console.log(now.getMonth()+1,'월');
+        console.log(now.getDate(),'일');
+        console.log(now.getHours(),'시');
+        console.log(now.getMinutes(),'분');
+        console.log(now.getSeconds(),'초');
+        console.log(now.getMilliseconds(),'ms');
+        console.log(now.getDay(),'요일');//0:일 ~ 6:토
+
+        //Date를 객체를 이용해서 오늘 요일을 얻고, 오늘이 평일인지 주말인지 출력하기
+
+
+        if(now.getDay()==0) console.log('오늘은 일요일')
+        if(now.getDay()==1) console.log('오늘은 월요일')
+        if(now.getDay()==2) console.log('오늘은 화요일')
+        if(now.getDay()==3) console.log('오늘은 수요일')
+        if(now.getDay()==4) console.log('오늘은 목요일')
+        if(now.getDay()==5) console.log('오늘은 금요일')
+        if(now.getDay()==6) console.log('오늘은 토요일')
+
+
+        console.log('--- if ----');
+        if(now.getDay()==0 || now.getDay()==6){
+            console.log('주말')
+        }else{
+            console.log('평일')
+        }
+        console.log('--- 삼항 ----');
+        now.getDay()==0 || now.getDay()==6?
+            console.log('주말')
+        :
+            console.log('평일')
+        ;
+
+        console.log('--- switch ----');
+        switch(now.getDay()){
+            case 0:
+            case 6:
+                console.log('주말');
+                break;
+            default:
+                console.log('평일');
+                break;
+        }
+
+        //2. Math 객체
+        //속성
+        console.log(Math.PI);
+        console.log(Math.E);
+        console.log(Math.SQRT1_2);
+        console.log(Math.SQRT2);//루트2
+        console.log(Math.min(45,2,0,-5,15));//최소값
+        console.log(Math.max(45,2,0,-5,15));//최대값
+        console.log(Math.random());// 0 <= x < 1
+        console.log(Math.round(5.1));//반올림: 정수값으로
+        console.log(Math.floor(5.1));//소수점 내림
+        console.log(Math.ceil(5.1));//소수점 올림
+
+        //실습 : 1~100까지의 랜덤값 구하기 (1 <= x < 101)
+        //(123.13).toFixed(2);
+
+        //1 <= x < 101
+        //0 <= x < 100
+        //0 <= x < 1
+        let ran = Math.floor((Math.random() * 100) + 1);//* 100: 자리수,+1(0인경우 1로)
+        console.log('random:',ran);
+       
+    </script>
+</head>
+<body>
+    <div class="box a">a</div>
+    <div class="box b">b</div>
+    <script>
+         console.log(document.getElementsByClassName('.box'));
+         console.log(document.querySelectorAll('.box'));
+         let d=document.querySelectorAll('.box');
+         d.forEach((v,i)=>{
+            if(v.className.includes(" b")) v.style.color='red'
+         });
+    </script>
+</body>
+</html>

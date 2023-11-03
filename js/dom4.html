@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소 추가, 삭제</title>
+    <style>
+        input{width: 50px;}
+    </style>
+    <script>
+        
+        function createNode(){
+            // 노드 만들기
+            let li = document.createElement("li");
+            li.innerText='새로 추가된 리스트';
+            console.log('li:', li);
+        }
+        function appendNode(){
+            let li = document.createElement("li");
+            li.innerText='새로 추가된 리스트';
+            //apprend(): 요소 .append() 선택된 요소의 맨 뒤 자식 요소로 추가
+            let ul=document.querySelector("ul");
+            console.log('ul:', ul);
+            ul.append(li)
+            ul.append('text')
+        }
+        function appendChildNode(){
+            let li = document.createElement("li");
+            li.innerText='새로 추가된 리스트 append Child';
+            //apprendChild(): 요소 .appendChild() 
+            //선택된 요소의 맨 뒤 자식 요소로만! 추가
+            let ul=document.querySelector("ul");
+            console.log('ul:', ul);
+            ul.appendChild(li)
+            ul.appendChild('text')//error : appendChild()는 요소노드만
+        }
+        function prependNode(){
+            let li = document.createElement("li");
+            li.innerText='새로 추가된 리스트';
+            //apprend(): 요소 .prepend() 선택된 요소의 맨 뒤 자식 요소로 추가
+            let ul=document.querySelector("ul");
+            console.log('ul:', ul);
+            ul.prepend(li)
+            ul.prepend('text')
+        }
+        function beforeNode(){
+            let standard=document.getElementById("li");
+            let li = document.createElement("li");
+            li.innerText='before';
+            standard.before(li)
+        }
+        function afterNode(){
+            let standard=document.getElementById("li");
+            let li = document.createElement("li");
+            li.innerText='after';
+            standard.after(li)
+        }
+        function removeNode(){
+            //내가 선택한 요소 삭제
+            let standard=document.getElementById("li");
+            standard.remove();
+        }
+
+        function removeChildNode(){
+            //내가 선택한 요소 삭제
+            let ul=document.querySelector("ul");
+            let standard=document.getElementById("li");
+            ul.removeChild(standard);
+        }
+        
+    </script>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li id="li">3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <button onclick="createNode()">createNode</button>
+    <button onclick="appendNode()">appendNode</button>
+    <button onclick="appendChildNode()">appendChildNode</button>
+    <button onclick="prependNode()">prependNode</button>
+    <button onclick="beforeNode()">beforeNode</button>
+    <button onclick="afterNode()">afterNode</button>
+    <button onclick="removeNode()">removeNode</button>
+    <button onclick="removeChildNode()">removeChildNode</button>
+
+    <hr>
+    <div id="calc">
+        <input type="text" id="value1" value="5" placeholder="값1">
+        <input type="text" id="value3" value="+" placeholder="연산자">
+        <input type="text" id="value2" value="5" placeholder="값2">
+        =
+        <input type="text" id="value4" value="" placeholder="결과"><br>
+        <button onclick="sumf()">계산하기</button>
+        <button onclick="reset()">초기화</button>
+    </div>
+    <script>
+        let wrap=document.querySelector('#calc');
+        let sumf=()=>{
+            let v1=document.querySelector('#value1').value;
+            let v2=document.querySelector('#value2').value;
+            let v3=document.querySelector('#value3').value;
+            let v4=document.querySelector('#value4');
+            switch(v3){
+                case '+':
+                    v4.value=Number(v1)+Number(v2);
+                    break;
+                case '-':
+                    v4.value=Number(v1)-Number(v2);
+                    break;
+                case '*':
+                    v4.value=Number(v1)*Number(v2);
+                    break;
+                case '/':
+                    v4.value=Number(v1)/Number(v2);
+                    break;
+                default:
+                    v4.value=0;
+            }
+        }
+        let reset=()=>{
+            document.querySelectorAll('#calc input').forEach((el,i)=>{
+                i==3?el.value=0:el.value='';
+            });
+        }
+    </script>
+</body>
+</html>

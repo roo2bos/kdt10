@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM class</title>
+    <style>
+        .container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+        .box {
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+        }
+        #green{
+            background-color: green;
+        }
+        #red{
+            background-color: red;
+        }
+        .d-none{opacity: 0.5;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="green">1</div>
+        <div class="box" id="red">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+    <button onclick="addClass()">addClass</button>
+    <button onclick="removeClass()">removeClass</button>
+    <button onclick="containsClass()">containsClass</button>
+    <button onclick="toggleClass()">toggleClass</button>
+    <p><input type="text" id="userName"></p>
+    <script>
+        let greenBox = document.getElementById('green');
+        
+
+        //클래스 추가
+        let addClass=()=>{
+            greenBox.classList.add('box1');
+            console.log(greenBox.classList)
+        }
+
+        //클래스 제거
+        let removeClass=()=>{
+            greenBox.classList.remove('box1');
+        }
+        //클래스 유무 확인, true/false 반환
+        let containsClass=()=>{
+            console.log(greenBox.classList.contains('box1'))
+        }
+
+        //클래스가 있으면 제거, 없으면 추가
+        let toggleClass=()=>{
+            greenBox.classList.toggle('d-none');
+        }
+    </script>
+    <script>
+        let input = document.getElementById('userName');
+        //속성 변경
+            input.setAttribute('placeholder','name');
+            input.placeholder='name2';
+            // input.style.color='red';
+            input.style='color:red;font-size:20px;';
+    </script>
+</body>
+</html>

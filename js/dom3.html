@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 다른 노드 접근하기</title>
+    <style>
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+        .box {
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+        }
+        #green{
+            background-color: green;
+        }
+        #red{
+            background-color: red;
+        }
+        .d-none{opacity: 0.5;}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box" id="green">1</div>
+        previous 테스트
+        <!-- 주석 -->
+        <div class="box" id="red">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+    <button onclick="getParent()">getParent</button>
+    <button onclick="pElSibling()">previousElementSibling</button>
+    <button onclick="pNoSibling()">previousNodeSibling</button>
+    <button onclick="nElSibling()">nextElementSibling</button>
+    <button onclick="nNoSibling()">nextNodeSibling</button>
+    <script>
+        let cotainer = document.getElementById("container");
+        let greenBox = document.getElementById("green");
+        let redBox = document.getElementById("red");
+
+        console.log('children:', container.children)
+        let getParent=()=>{
+            console.log(greenBox.parentNode)
+        }
+
+        //이전 형제
+        let pElSibling=()=>{
+            console.log(redBox.previousElementSibling);
+        }
+        let pNoSibling=()=>{
+            console.log(redBox.previousSibling);
+        }
+
+        //다음 형제
+        let nElSibling=()=>{
+            console.log(redBox.nextElementSibling);
+        }
+        let nNoSibling=()=>{
+            console.log(redBox.nextSibling);
+        }
+
+    </script>
+</body>
+</html>
