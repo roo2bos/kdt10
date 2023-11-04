@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>요소 추가, 삭제</title>
     <style>
-        input{width: 50px;}
+        #calc input{margin-bottom: 2px;width: 50px;}
+        #wrap{min-width:635px;}
+        #wrap p{font-weight: bold;}
+        #wrap p:before{content:"📝 ";}
+        #wrap p span{font-weight: normal;font-size: 13px;color: #777;}
+        #form{display: grid;gap:5px;grid-template-columns: 70px 1fr;align-items: center;}
+        #form label{font-weight: bold;}
+        #form label:after{content:" *";color:red}
+        #form input{padding:5px}
+        #list{width: 100%;margin-top: 10px;text-align: center;border-collapse: collapse;table-layout: fixed;}
+        #list tr>*{padding: 10px;vertical-align: top;border: 1px solid #000;}
+        #list tr>*:nth-child(1){width: 50px;}
+        #list tr>*:nth-child(2){width: 100px;}
+        #list tr>*:nth-child(3){width: 250px;}
+        #list tr>*:nth-child(4){width: 150px;}
+        #list tr>td:nth-child(3){text-align: left;}
     </style>
     <script>
         
@@ -97,6 +112,7 @@
         <button onclick="sumf()">계산하기</button>
         <button onclick="reset()">초기화</button>
     </div>
+
     <script>
         let wrap=document.querySelector('#calc');
         let sumf=()=>{
@@ -124,6 +140,76 @@
         let reset=()=>{
             document.querySelectorAll('#calc input').forEach((el,i)=>{
                 i==3?el.value=0:el.value='';
+            });
+        }
+
+    </script>
+
+    <hr>
+    <div id="wrap">
+        <p>방명록 입니다 <span>( * : 필수 )</span></p>
+        <form id="form" action="/asdf">
+            <label for="sbj">작성자</label> <input type="text" id="sbj" value="">
+            <label for="content">내용</label> <input type="text" id="content" value="">
+            <button type="submit" onclick="add();return false;">작성</button>
+        </form>
+        <table id="list">
+            <tr>
+                <th class="no">번호</th>
+                <th class="writer">작성자</th>
+                <th class="content">내용</th>
+                <th class="date">작성일</th>
+            </tr>
+            <tr><td class="empty" colspan="4">등록된 글이 없습니다.</td></tr>
+        </table>
+    </div>
+    <script>
+        let idx=document.querySelectorAll('.no').length;
+        let add = () => {
+            let sbj=document.querySelector('#sbj');
+            let sbjVal=sbj.value;
+            let content=document.querySelector('#content');
+            let contentVal=content.value;
+            let tb=document.querySelector('#list');
+            let ths=document.querySelectorAll('#list th');
+            let tr=tb.insertRow();
+            let empty=document.querySelector('.empty');
+            let inputs=document.querySelectorAll('#form input');
+            let now=new Date();
+            let date=`${
+                    now.getFullYear()}-${
+                    now.getMonth() < 10 ? '0'+now.getMonth() : now.getMonth()}-${
+                    now.getDate() < 10 ? '0'+now.getDate() : now.getDate()} ${
+                    now.getHours() < 10 ? '0'+now.getHours() : now.getHours()}:${
+                    now.getMinutes() < 10 ? '0'+now.getMinutes() : now.getMinutes()}:${
+                    now.getSeconds() < 10 ? '0'+now.getSeconds() : now.getSeconds()
+                }`;
+            if(!sbjVal.length) {sbj.focus();alert('제목을 작성해 주세요'); return };
+            if(!contentVal.length) {content.focus();alert('내용을 작성해 주세요'); return };
+            if(empty!=null) tb.deleteRow(1);
+            
+            //insertRow, insertCell 버전 : 시작
+            ths.forEach((th,i)=>{
+                if(th.className == 'no') tr.insertCell(i).innerText = idx;
+                if(th.className == 'writer') tr.insertCell(i).innerText = sbjVal;
+                if(th.className == 'content') tr.insertCell(i).innerText = contentVal;
+                if(th.className == 'date') tr.insertCell(i).innerText = date;
+            });
+            //insertRow, insertCell 버전 : 끝
+
+            
+            //innerHTML 버전 : 시작
+            /* 
+            let tbs=document.querySelector('#list tbody');
+            let trs=document.createElement('tr');
+            trs.innerHTML=`<td>${idx}</td><td>${sbjVal}</td><td>${contentVal}</td><td>${date}</td>`;
+            tbs.appendChild(trs); 
+            */
+            //innerHTML 버전 : 끝
+
+            idx++;
+            inputs.forEach((input,i)=>{
+                input.value="";
             });
         }
     </script>
