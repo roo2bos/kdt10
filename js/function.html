@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>function</title>
+</head>
+<body>
+    <div style="width: 100px;height: 100px;border: 1px solid #000;" onclick="functionName()">클릭시 콘솔에 '안녕하세요' 메세지 출력</div>
+    <hr>
+    첫번째 입력 값 : <input type="text" id="val1" size="3">
+    두번째 입력 값 : <input type="text" id="val2" size="3">
+    <button onclick="add()">더하기</button>
+    <button onclick="sub()">빼기</button>
+    <button onclick="mul()">곱하기</button>
+    <button onclick="divide()">나누기</button> 
+
     <script>
         //함수 선언문
         functionName();
@@ -54,36 +65,36 @@
 
 
         //실습
-        // let num1 = prompt('첫번째 숫자를 입력해주세요.')||10;
-        // let num2 = prompt('두번째 숫자를 입력해주세요.')||10;
+        // let num1 = prompt('첫번째 숫자를 입력해주세요.');
+        // let num2 = prompt('두번째 숫자를 입력해주세요.');
         function add(){
+            let num1 = document.querySelector("#val1").value;
+            let num2 = document.querySelector("#val2").value;
             let result = Number(num1) + Number(num2);
             console.log(`${num1} + ${num2} =`,result);
             alert(result);
         }
         function sub(){
+            let num1 = document.querySelector("#val1").value;
+            let num2 = document.querySelector("#val2").value;
             let result = Number(num1) - Number(num2);
             console.log(`${num1} - ${num2} =`,result);
             alert(result);
         }
         function mul(){
+            let num1 = document.querySelector("#val1").value;
+            let num2 = document.querySelector("#val2").value;
             let result = Number(num1) * Number(num2);
             console.log(`${num1} * ${num2} =`,result);
             alert(result);
         }
         function divide(){
+            let num1 = document.querySelector("#val1").value;
+            let num2 = document.querySelector("#val2").value;
             let result = Number(num1) / Number(num2);
             console.log(`${num1} / ${num2} =`,result);
             alert(result);
         }
     </script>
-</head>
-<body>
-    <div style="width: 100px;height: 100px;border: 1px solid #000;" onclick="test()">test</div>
-    <hr>
-    <button onclick="add(num1,num2)">더하기</button>
-    <button onclick="sub(num1,num2)">빼기</button>
-    <button onclick="mul(num1,num2)">곱하기</button>
-    <button onclick="divide(num1,num2)">나누기</button> 
 </body>
 </html>
