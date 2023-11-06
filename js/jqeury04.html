@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery class</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>jQuery Ready</h1>
+
+    <span>mouseover</span>
+    <div class="container">
+        <input type="text">
+        <button>클릭</button>
+    </div>
+    
+    <script>
+        console.log($(document))
+        //ready
+        $(document).ready(function(){
+            $('.container').append('<h2>안녕 ready1</h2>')
+            console.log('s')
+        });
+        $(function(){
+            //ready와 동일
+            $('.container').append('<h2>안녕 ready2</h2>')
+
+        });
+        //load
+        $(window).on('load',function(){
+            $('.container').append('<h2>안녕 load</h2>')
+        });
+        /* $('button').click(function(){
+            alert('클릭')
+        }); */
+        $('button').on('click',function(){
+            alert('클릭 on방식')
+        });
+        $('span').on('mouseover',function(){
+            alert('mouseover')
+        });
+        $('input').on('keydown',function(e){
+            console.log(e.key);
+            console.log('this:',this);
+            if(e.key=='Enter') alert('Enter 키')
+            // console.log('keydown')
+        });
+    </script>
+</body>
+</html>

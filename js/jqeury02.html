@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 요소 추가, 삭제</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        //요소 추가
+        function appendJS(){
+            let ul=document.querySelector("ul")
+            let li=document.createElement('li');
+            li.innerText='yellow1';
+            ul.append(li);
+        }
+        function appendJQ(){
+            $('ul').append('<li>yellow2</li>');
+        }
+
+        function prependJS(){
+            let ul=document.querySelector("ul")
+            let li=document.createElement('li');
+            li.innerText='pink1';
+            ul.prepend(li);
+        }
+        function prependJQ(){
+            $('ul').prepend('<li>pink2</li>');
+        }
+
+        //형제 요소 추가
+        function beforeJS(){
+            let ul=document.querySelector(".green")
+            let li=document.createElement('li');
+            li.innerText='red1';
+            ul.before(li);
+        }
+        function beforeJQ(){
+            $('.green').before('<li>red2</li>');
+        }
+        function afterJS(){
+            let ul=document.querySelector(".green")
+            let li=document.createElement('li');
+            li.innerText='black1';
+            ul.after(li);
+        }
+        function afterJQ(){
+            $('.green').after('<li>black2</li>');
+        }
+        //요소 삭제
+        function removeJS(){
+            let li2=document.querySelector(".li2")
+            li2.remove();
+        }
+        function removeJQ(){
+            $('.li2').remove();
+        }
+        function emptyJS(){
+            let ul=document.querySelector(".nums");
+            ul.innerHTML='';
+        }
+        function emptyJQ(){
+            $('.nums').empty();
+        }
+
+        //부모
+        function findParent(){
+            console.log($('.li2').parent());
+        }
+        function findParents(){
+            console.log($('.li2').parents());
+        }
+        function findNext(){
+            console.log($('.li2').next());
+        }
+        function findPrev(){
+            console.log($('.li2').prev());
+        }
+        function findChildren(){
+            console.log($('.nums').children());
+        }
+    </script>
+    <style>
+        .fruitWrap{display: flex;justify-content:center;align-items:center;height: 100px;}
+        #fruit{width: 100px;}
+        .fruitBtns{text-align: center;}
+    </style>
+</head>
+<body>
+    <h1>jQuery</h1>
+
+    <h2>요소 추가</h2>
+    <ul>
+        <li>orange</li>
+        <li class="green">green</li>
+        <li>navy</li>
+    </ul>
+    <button onclick="appendJS()">append JS</button>
+    <button onclick="appendJQ()">append jQuery</button><br>
+    <button onclick="prependJS()">prepend JS</button>
+    <button onclick="prependJQ()">prepend jQuery</button><br>
+    <button onclick="beforeJS()">before JS</button>
+    <button onclick="beforeJQ()">before jQuery</button><br>
+    <button onclick="afterJS()">after JS</button>
+    <button onclick="afterJQ()">after jQuery</button><br>
+    <hr>
+    <h2>요소 삭제</h2>
+    <ul class="nums">
+        <li>1</li>
+        <li class="li2">2</li>
+        <li>3</li>
+    </ul>
+    <button onclick="removeJS()">remove JS</button>
+    <button onclick="removeJQ()">remove jQuery</button><br>
+    <button onclick="emptyJS()">empty JS</button>
+    <button onclick="emptyJQ()">empty jQuery</button><br><br>
+
+    <button onclick="findParent()">findParent</button>
+    <button onclick="findParents()">findParents</button>
+    <button onclick="findNext()">findNext</button>
+    <button onclick="findPrev()">findPrev</button>
+    <button onclick="findChildren()">findChildren</button><br><br>
+    <hr>
+
+    <h2>과일 바꾸기</h2>
+    <div class="fruitWrap">
+        <span>과일을 골라 볼께요</span>
+        <img src="./imgs/apple.png" id="fruit" alt="" style="display: none;">
+    </div>
+    <p class="fruitBtns">
+        <button onclick="fruits('apple')">사과</button>
+        <button onclick="fruits('banana')">바나나</button>
+        <button onclick="fruits('grape')">포도</button>
+        <button onclick="fruits('peach')">복숭아</button>
+    </p>
+    <script>
+        let fruits = fruit =>{
+            $('.fruitWrap span').hide();
+            $('#fruit').attr('src',`./imgs/${fruit}.png`).show();
+        }
+    </script>
+</body>
+</html>
