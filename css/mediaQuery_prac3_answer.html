@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mediaQuery</title>
+    <script src="https://kit.fontawesome.com/837ff3adc1.js" crossorigin="anonymous" async></script>
+    <style>
+        /* 풀이 */
+        body{margin: 0;padding: 0;}
+        ul{margin: 0;padding: 0;list-style: none;}
+
+        /* header 스타일링 */
+        header{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            z-index: 100;
+        }
+        header .inner{
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        header .inner .logo{
+            position: relative;
+            right:200px;
+            color: #fff;
+            font-size: 2rem;
+        }
+        header .inner .menu{
+            display: flex;
+        }
+        header .inner .menu li{
+            margin:0 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        @media screen and (480px <= width <= 768px) {
+        /* @media screen and (max-width:768px) { */
+            header{
+                height: 60px;
+            }
+            header .inner{
+                display: block;
+            }
+            header .inner .logo{
+                position: static;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 60px;
+
+                /* 풀이 : flex 방법 */
+                /* display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 60px;
+                right:0; */
+
+                /* 풀이 : static 방법 */
+                /* position: static;
+                text-align: center;
+                line-height: 60px; */
+            }
+            header .inner .menu{
+                position: fixed;;
+                top: 60px;
+                left: 0;
+                right: 0;
+                height: auto;
+                align-items: center;
+                flex-direction: column;
+                padding: 10px 0;
+                background-color: rgb(222, 243, 250);
+
+                /* 풀이 */
+                /* display: block;
+                background-color: azure;
+                text-align: center; */
+            }
+            header .inner .menu li{
+                padding: 10px;
+                font-weight: normal;
+            }
+        }
+
+        /* 태블릿 */
+        @media screen and (max-width: 479px){
+            header{
+                height: 45px;
+            }
+            header .inner{
+                display: block;
+                background-color: palevioletred;
+            }
+            header .inner .logo{
+                position: static;
+                text-align: center;
+                line-height: 45px;
+            }
+            header .inner .menu{
+                display: block;
+                background-color: pink;
+                text-align: center;
+            }
+            header .inner .menu li{
+                padding:10px 0;
+                font-weight: 500;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <div class="logo"><i class="fa-solid fa-igloo"></i></div>
+
+            <ul class="menu">
+                <li>메뉴1</li>
+                <li>메뉴2</li>
+                <li>메뉴3</li>
+                <li>메뉴4</li>
+            </ul>
+        </div>
+    </header>
+</body>
+</html>

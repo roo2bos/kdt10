@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mediaQuery</title>
+    <style>
+        /* 실습 */
+        .wrap{display: flex;gap: 20px;justify-content: center;align-items: center;}
+        .wrap>div{width: 100px;height: 100px;border-radius: 10px;background-color: #000;}
+        @media screen and (max-width:700px){
+            .wrap{flex-direction:column;}
+            .wrap>div{background-color: skyblue;}
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
