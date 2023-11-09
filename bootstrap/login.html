@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="id">id : </label><br>
+    <input type="text" name="id" id="id"><br>
+    <label for="pw">password : </label><br>
+    <input type="text" name="pw" id="pw"><br>
+
+    <button onclick="login()">로그인</button>
+    <button onclick="checkLoggedIn()">로그인 확인</button>
+    <button onclick="logout()">로그아웃</button>
+    <script>
+        //웹 스토리지 : 프론트에서 웹에 저장소
+        //key와 value 값으로 이루어진 데이터를 저장할 수 있음
+
+        //세션 스토리지 : 
+        // 웹 페이지의 세션이 끝날 때 저장된 데이터가 모두 사라짐
+        // 탭이 다른 경우. 탭을 닫은 경우 저장된 데이터를 사용할 수 없음.
+        //로컬 스토리지 : 세션이 끝나더라도 데이터가 지워지지 않음
+        // 탭이 다르거나, 해당 페이지를 나가도 데이터를 사용할 수 있음.
+        // 만료 시간을 정함.
+
+        const inputId= document.querySelector('#id');
+        const inputPw= document.querySelector('#pw');
+
+        const id='aaaa';
+        const pw='1234';
+        const login = () => {
+            if(inputId.value && inputPw.value){
+                //아이디와 비밀번호가 입력된 경우
+                console.log(`id:${inputId.value}, pw: ${inputPw.value}`);
+                if(inputId.value === id){//아이디 값이 지정된 아이와 같은지 비교
+                    if(inputPw.value === pw){//비밀번호 값이 지정된 비밀번호와 같은지 비교
+                        localStorage.setItem('loggedIn',true);//아이디 비번이 모두 같다면 세션스도리지에 저장
+                        inputId.value='';
+                        inputPw.value='';
+                        alert('로그인을 성공했습니다.')
+                    }else{
+                        inputId.value='';
+                        inputPw.value='';
+                        alert('비밀번호를 확인해주세요.')
+                    }
+                }else{
+                    inputId.value='';
+                    inputPw.value='';
+                    alert('아이디를 확인해주세요.')
+                }
+            }else{
+                alert('아이디와 비밀번호를 입력해주세요.')
+            }
+        }
+        //로그인 유저인지 확인하는 함수
+        const checkLoggedIn = () => {
+            //해당 키값을 가지고 있는 데이터가 로컬스토리지에 있는지 확인 후 가져옴
+            console.log(localStorage.getItem('loggedIn'))
+            if(localStorage.getItem('loggedIn')){
+                console.log('로그인 유저 입니다')
+            }else{
+                console.log('로그인 되어 있지 않은 유저 입니다')
+            }
+        }
+        //로그아웃 : 로컬스토리지 삭제
+        const logout = () => {
+            localStorage.removeItem('loggedIn')
+        }
+    </script>
+</body>
+</html>
