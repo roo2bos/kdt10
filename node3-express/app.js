@@ -9,25 +9,40 @@ app.set('views','./views');
 
 //static 미들웨어 등록(정적파일 로드. 예 : css, js)
 //static 이라는 실제 폴더를 static 이름으로 접근하겠다.
-
-app.use('/static', express.static(__dirname+ '/static'))
+// app.use('/static', express.static(__dirname+ '/static'))
+app.use('/public', express.static(__dirname+ '/static'))
 console.log(__dirname)
 
 //app.get(경로, 해당 경로로 들어왔을때 실행할 함수)
 //localhost:8000/ 경로로 접속 했을때
 app.get('/',function(req,res){
+    //console.log(req.query)
     //res.send(응답 내용)
     // res.send('<h1>Hello Express!</h1>')
 
-    //index라는 파일명을 찾아서 해당 파일 호출
-    res.render('index');
+    //index라는 파일명을 찾아서 해당 파일 렌더
+    res.render('index',{
+        btns:['사과','오렌지','키위'],
+        isLogin:true,
+        me:{
+            name:'ho',
+            msg:'반갑습니다'
+        }
+    });
+    //2번째 인자를 통해서 변수(btns)를 보낼 수 있음
 });
-app.get('/sub',function(req,res){
+app.get('/login',function(req,res){
+    res.render('login');
+});
+app.get('/register',function(req,res){
+    res.render('register');
+});
+app.get('/intro',function(req,res){
     //res.send(응답 내용)
     // res.send('<h1>Hello Express!</h1>')
 
     //index라는 파일명을 찾아서 해당 파일 호출
-    res.render('sub');
+    res.render('intro');
 });
 
 app.get('/kdt',function(req,res){

@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ejs</title>
-    <link rel="stylesheet" href="/static/css/index.css">
+    <%- include('./component/head.ejs',{title:'소개'})  %>
 </head>
 <body>
     <%- include('./component/header')  %>
+    <%- include('./component/contentHead')  %>
     <h1>Hello EJS sub</h1>
-    <% for (let i=0; i<5;i++){ %>
-        <div>hi~ <%= i %>번째</div>
-        <%= i %>
-    <% } %>
+    <%- include('./component/contentFoot')  %>
 </body>
 </html>
