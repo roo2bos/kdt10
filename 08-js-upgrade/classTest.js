@@ -76,4 +76,32 @@ const apt1 = new Apartment(2022, '레미안', 100, 30);
 console.log(apt1);
 apt1.getAge();
 console.log(apt1.getFloor());
+console.log('-----');
 
+//실습
+class Rectangle extends Shape{
+    getDiag(){//대각선 길이
+        return Math.sqrt(this.x**2 + this.y**2)
+    }
+}
+class Triangle extends Shape{
+    getArea(){//삼각형 넓이
+        return (this.x * this.y)/2;
+    }
+}
+class Circle extends Shape{
+    constructor(x,y,r){
+        super(x,y);
+        this.radius=r;
+    }
+    getArea(){//원의 넓이
+        return this.radius**2 * Math.PI;
+    }
+}
+const diag=new Rectangle(3,4);
+const tri=new Triangle(3,4);
+const ccle=new Circle(3,4,5);
+console.log('rect1: ',rec1.getArea());
+console.log('diag: ',diag.getDiag());
+console.log('tri: ',tri.getArea());
+console.log('ccle: ', ccle.getArea());
