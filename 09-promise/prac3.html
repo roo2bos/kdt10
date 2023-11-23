@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>콜백지옥 예시</h1>
+    <script>
+        /* setTimeout(function(){
+            document.body.style.backgroundColor='red';
+            setTimeout(function(){
+                document.body.style.backgroundColor='orange';
+                setTimeout(function(){
+                    document.body.style.backgroundColor='yellow';
+                    setTimeout(function(){
+                        document.body.style.backgroundColor='green';
+                        setTimeout(function(){
+                            document.body.style.backgroundColor='blue';
+                        },1000);
+                    },1000);
+                },1000);
+            },1000);
+        },1000); */
+
+        //실습
+        async function exec(){
+            await new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor='red';
+                    resolve();
+                },1000);
+            });
+            await new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor='orange';
+                    resolve();
+                },1000);
+            });
+            await new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor='yellow';
+                    resolve();
+                },1000);
+            });
+            await new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor='green';
+                    resolve();
+                },1000);
+            });
+            await new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor='blue';
+                    resolve();
+                },1000);
+            });
+        }
+        // exec();
+
+        function colors(color){
+            return new Promise((resolve, reject)=>{
+                setTimeout(function(){
+                    document.body.style.backgroundColor=color;
+                    resolve();
+                },1000);
+            });
+        }
+
+        //1. then() 이용
+        /* colors('red').then(()=>{
+            return colors('orange');
+        }).then(()=>{
+            return colors('yellow');
+        }).then(()=>{
+            return colors('green');
+        }).then(()=>{
+            return colors('blue');
+        }); */
+
+        //async-await 이용
+        async function exec2(){
+            await colors('red');
+            await colors('orange');
+            await colors('yellow');
+            await colors('green');
+            await colors('blue');
+        }
+        exec2();
+    </script>
+</body>
+</html>
