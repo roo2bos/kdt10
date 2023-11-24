@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 전송</title>
+    <script src="https://unpkg.com/htmx.org@1.9.9"></script>
+    <style>
+        fieldset{margin: 10px 0;}
+        .colorbox{display: inline-block;width: 100px;height: 30px;border: 1px solid #000;color: #fff;vertical-align: middle;background-color: red;box-sizing: border-box;} 
+        .colorbox2{display: inline-block;width: 100px;height: 30px;border: 1px solid #000;color: #fff;vertical-align: middle;box-sizing: border-box;}
+        .num{vertical-align: middle;}
+    </style>
+</head>
+<body>
+    <h1>실습</h1>
+    <h2>post</h2>
+    <form action="/pracResult2" method="post">
+        <label>이름:
+            <input type="text" name="name" placeholder="이름을 입력해주세요" required value="">
+        </label>
+
+        <fieldset>
+            <legend>성별</legend>
+            <label><input type="radio" name="gender" value='남자' required > 남자</label>
+            <label><input type="radio" name="gender" value='여자' required> 여자</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>생년월일</legend>
+            <select name="year" >
+                <option value="">년도 선택</option>
+                <% for(let i=0;i<50;i++){ %>
+                    <option value="<%= 2010 - i %>"><%= 2010 - i %></option>
+                <% } %>
+            </select>년
+            <select name="month" >
+                <option value="">월 선택</option>
+                <% for(let i=1;i<=12;i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% } %>
+            </select>월
+            <select name="day" >
+                <option value="">일 선택</option>
+                <% for(let i=1;i<=31;i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% } %>
+            </select>일
+        </fieldset>
+
+        <fieldset>
+            <legend>관심사</legend>
+            <label><input type="checkbox" name="interest" value="여행" >여행</label>
+            <label><input type="checkbox" name="interest" value="패션">패션</label>
+            <label><input type="checkbox" name="interest" value="음식">음식</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>선택</legend>
+            <label>좋아하는 색상(무지개 색상 중 택일) <input type="number" onchange="colors(this)" name="color" min="0" max="7" value="0" class="colorbox"></label><br>
+            좋아하는 색상표에서는?
+            <input type="color" onchange="colors(this)" name="color2" min="0" max="7" value="0" class="colorbox2"></label>
+            <br>
+            <label>좋아하는 숫자(0~100 중에 <span class="num">0</span>) <input type="range" name="number" value="0"  onchange="numbers(this)" ></label>
+
+        </fieldset>
+        <button>회원가입</button>
+    </form>
+    <script>
+        const colors=['red','orange','yellow','green','blue','navy','purple'];
+        let color;
+        function colors(el){
+            document.querySelector('.colorbox').style.background=colors[el.value];
+        }
+        function numbers(el){
+            document.querySelector('.num').innerText=el.value;
+        }
+    </script>
+</body>
+</html>

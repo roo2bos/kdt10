@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 전송</title>
+</head>
+<body>
+    <h1>Form</h1>
+    <a href="./prac1">실습1 get</a> / 
+    <a href="./prac2">실습2 post</a>
+    <h2>Get 요청</h2>
+    <form action="/login" method="get">
+        <label for="id">ID: </label>
+        <input type="text" id="id" name="id" placeholder="ID는 최소 3글자" required minlength="3" >
+        <label>PW: 
+            <input type="password" name="pw" placeholder="PW" required>
+        </label>
+        <input type="number" name="grade" placeholder="GRADE" max="4">
+        <button>제출</button>
+    </form>
+    <h2>Post 요청</h2>
+    <form action="/login" method="post">
+        <label for="id2">ID: </label>
+        <input type="text" id="id2" name="id2" placeholder="ID" required pattern="^([a-zA-Z0-9가-힣]){4,}$" title="아이디는 대소문자, 숫자, 한글로 구성된 4자 이상의 문자여야 합니다.">
+        <label>PW: 
+            <input type="password" name="pw2" placeholder="PW" required pattern="^([a-z0-9]){8,12}$">
+        </label>
+        <button>제출</button>
+    </form>
+
+    <!-- js form 유효성 검사 -->
+    <form action="/js-form-check" method="post" name="valiForm" onsubmit="return checkForm(this)" target="_blank">
+        <input type="text" name="id3" minlength="1"  placeholder="ID" title="최소 1글자">
+        <span>우편물 수령장소</span>
+        <input type="checkbox" name="post" value="자택">자택
+        <input type="checkbox" name="post" value="회사">회사
+        <button>제출</button>
+    </form>
+    <script>
+        function checkForm(form){
+            //1) name으로 폼 선택
+            // const form = document.forms['valiForm'];
+            // console.log(form);
+            if(form.id3.value==''){
+                form.id3.focus();
+                alert('아이디를 입력해주세요.');
+                return false;//submit 이벤트가 일어나지 않음
+            }
+            //각각의 input 요소의 name속성 값으로 접근
+            if((form.post[0].checked == false) && (form.post[1].checked == false)){
+                alert('우편물 수령 장소를 선택해주세요');
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

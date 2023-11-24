@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 전송</title>
+</head>
+<body>
+    <h1>실습 post 결과</h1>
+    이름은 <%= userInfo.name %> 이고<br>
+    성별은 <%= userInfo.gender %> 이고<br>
+    생년월일은 
+
+    <% if(!userInfo.year && !userInfo.month && !userInfo.day ){ %>
+        선택하지 않았습니다<br>
+    <% }else{ %>
+        <%= userInfo.year %>년 <%= userInfo.month %>월 <%= userInfo.day %>일 입니다.<br>
+    <% } %>
+    관심사는 
+    <% if(!userInfo.interest){ %>
+        없습니다
+    <% }else{ %>
+        <%=userInfo.interest %>
+    <% } %>
+    <br>
+
+    좋아하는 무지개 색은  
+    <% if(userInfo.color==0){ %>
+        빨강 입니다
+    <% } %>
+    <% if(userInfo.color==1){ %>
+        주황 입니다
+    <% } %>
+    <% if(userInfo.color==2){ %>
+        노랑 입니다
+    <% } %>
+    <% if(userInfo.color==3){ %>
+        초록 입니다
+    <% } %>
+    <% if(userInfo.color==4){ %>
+        파랑 입니다
+    <% } %>
+    <% if(userInfo.color==5){ %>
+        남색 입니다
+    <% } %>
+    <% if(userInfo.color==6){ %>
+        보라 입니다
+    <% } %>
+    
+    <br>
+    좋아하는 색상표 색은 <%= userInfo.color2 %> 입니다<br>
+    좋아하는 숫자는 <%= userInfo.number %> 입니다<br>
+    <script>
+        document.body.style.color=`<%= userInfo.color2 %>`
+    </script>
+</body>
+</html>
