@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File upload</title>
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body{min-width: 350px;}
+        .pop{/* display: none; */ display: flex;z-index: -1;opacity: 0;position: fixed;top: 0;left: 0;right: 0;bottom: 0;overflow: auto;padding: 3rem; justify-content: center;align-items: center;background-color: rgba(0,0,0,.0);transition: .3s;}
+        .pop.show{z-index: 2;opacity: 1;display: flex;background-color: rgba(0,0,0,.1);}
+        .pop .box{position: relative;min-width:200px;padding: 2rem;text-align: center;background-color: #fff;border-radius: 10px;}
+        .thumb img{width: 50px;height: 50px;border-radius: 5px;vertical-align: middle;}
+        .pop .box img{width: 150px;border-radius: 50%;}
+        .pop .box button{position: absolute; top: -0.5rem; right: -0.5rem; width: 2rem; padding: 10px; height: 2rem; display: flex; justify-content: center;align-items: center; font-size: 1.2rem; line-height: 1;  border: 0; background-color: #fff; border-radius: 50%; cursor: pointer; box-shadow: 0 0 5px #a1a1a1;}
+    </style>
+</head>
+<body>
+    <h1>실습 파일 업로드</h1>
+    <p>업로드된 파일명을 아이디 값의 이름으로 서버에 저장</p>
+    <form name="submit">
+        <input type="text" name="id" id="id" placeholder="아이디"><br><br>
+        <input type="text" name="pw" id="pw" placeholder="비밀번호"><br><br>
+        <input type="text" name="username" id="username" placeholder="이름"><br><br>
+        <input type="text" name="age" id="age" placeholder="나이"><br><br>
+        <input type="file" name="profile" multiple onchange="thumb(this)" id="profile">
+        <p class="thumb"></p><br><br>
+        <button type="button" onclick="register()">회원가입</button><br>
+    </form>
+    <div class="pop">
+        <div class="box">
+            <img src="" alt="">
+            <h2><span class="id"></span>님 환영합니다</h2>
+            <p>비밀번호: <span class="pw"></span></p>
+            <p>이름: <span class="name"></span></p>
+            <p>나이: <span class="age"></span></p>
+            <button onclick="(()=>document.querySelector('.pop').classList.remove('show'))()">✕</button>
+        </div>
+
+    </div>
+    
+    <script>
+        function thumb(event) {
+            for (var image of event.files) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    var img = document.createElement("img");
+                    img.setAttribute("src", event.target.result);
+                    document.querySelector(".thumb").append(img);
+                };
+
+                console.log(image);
+                reader.readAsDataURL(image);
+            }
+        }
+        function register() {
+            const form = document.forms['submit'];
+            const formData = new FormData();
+            console.log(form.id); // id 요소
+            console.log(form.profile); // 파일 요소
+
+            console.log(form.profile.files);
+            console.log(form.profile.files[0].name);
+
+            const file = form.profile.files[0];
+            const fileName = form.profile.files[0].name;
+            const userId = form.id.value;
+
+            /*
+            // --프론트에서 파일명 변경--
+            // 변경 X
+            // form.profile.files[0].name = form.id.value;
+            // console.log('변경 후 :', form.profile.files[0].name);
+
+            // 확장자
+            const ext = fileName.split('.')[1];
+            console.log('ext >', ext);
+
+            const newFile = new File([file], `${userId}.${ext}`, {
+                type: file.type
+            });
+
+            console.log('newFile >', newFile);
+
+            formData.append('profile', newFile);
+            */
+
+            // multer 세부설정에서 req.body를 쓰고 싶다면, 파일을 맨 마지막에 append
+            formData.append('id', userId);
+
+            //formData를 사용할때는 마지막에 업로드한 파일을 추가해야
+            // Multer에서 req.body로 받을수 있음(multer 공식문서 안내 사항)
+            formData.append('profile', file);
+
+
+
+            axios({
+                method: 'post',
+                url: '/upload/practice2',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            }).then((res) => {
+                console.log(res.data);
+            })
+        }
+    </script>
+</body>
+</html>
