@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 전송</title>
+
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        fieldset{margin: 10px 0;}
+        .colorbox{display: inline-block;width: 100px;height: 30px;border: 1px solid #000;color: #fff;vertical-align: middle;background-color: red;box-sizing: border-box;} 
+        .colorbox2{display: inline-block;width: 100px;height: 30px;border: 1px solid #000;color: #fff;vertical-align: middle;box-sizing: border-box;}
+        .num{vertical-align: middle;}
+    </style>
+</head>
+<body>
+    <h1>실습</h1>
+    <h2>axios get 회원가입</h2>
+    <form name="register">
+        <label>이름:
+            <input type="text" name="name" placeholder="이름을 입력해주세요"  required="required">
+        </label>
+
+        <fieldset>
+            <legend>성별</legend>
+            <label><input type="radio" name="gender" value='남자'   required="required"> 남자</label>
+            <label><input type="radio" name="gender" value='여자' > 여자</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>생년월일</legend>
+            <select name="year" required>
+                <% for(let i=0;i<50;i++){ %>
+                    <option value="<%= 2010 - i %>"><%= 2010 - i %></option>
+                <% } %>
+            </select>년
+            <select name="month" >
+                <!-- <option value="">월 선택</option> -->
+                <% for(let i=1;i<=12;i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% } %>
+            </select>월
+            <select name="day" >
+                <!-- <option value="">일 선택</option> -->
+                <% for(let i=1;i<=31;i++){ %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% } %>
+            </select>일
+        </fieldset>
+
+        <fieldset>
+            <legend>관심사</legend>
+            <label><input type="checkbox" name="hobby" value="여행"  >여행</label>
+            <label><input type="checkbox" name="hobby" value="패션">패션</label>
+            <label><input type="checkbox" name="hobby" value="음식">음식</label>
+        </fieldset>
+        <button type="button" onclick="axiosGet()">회원가입</button>
+        <p class="resultbox"></p>
+    </form>
+    <script>
+        async function axiosGet() {
+            const form = document.forms['register'];
+            const resultBox = document.querySelector('.resultbox');
+
+           
+            //try {
+            // 태그에 requred가 있을때 validate 검사해주는 메소드
+                if (!form.name.checkValidity()) {
+                    resultBox.textContent = '이름을 입력해주세요.';
+                } else if (!form.gender[0].checkValidity()) {
+                    resultBox.textContent = '성별을 선택해주세요.';
+                } else {
+                    // 1. forEach 방법 : nodeList 일때 가능
+                    /* let hobbies=[];
+                    form.hobby.forEach((el)=>{
+                        el.checked && hobbies.push(el.value);
+                    }); */
+
+                    //2. filter, map 반복문 사용
+                    //Array.from(arrayList) : 유사배열 객체를 배열로 반환
+                    const hobbies = Array.from(form.hobby).filter((el) => el.checked === true).map((el) =>  el.value);
+
+                    let data = {
+                        name: form.name.value,
+                        gender: form.gender.value,
+                        birth: `${form.year.value}년 ${form.month.value}월 ${form.day.value}일`,
+                        hobby:hobbies
+                    };
+                    const response = await axios({
+                        method: 'get', 
+                        url: '/join', 
+                        params: data
+                    }).then((response)=>{
+                        console.log(response.data);
+                        const {name, gender,birth,hobby} = response.data;
+
+                        resultBox.textContent = `
+                        Get /axios 요청 완료!
+                        ${name}님의 성별은 ${gender}!
+                        생일은 ${birth},
+                        관심사는 ${hobby==undefined?'없습니다':hobby+' 입니다'}!
+                        `;
+                    }).catch((err)=>{
+
+                        console.log('Error!', err)
+                        resultBox.textContent = '알수없는 에러 발생!';
+                    });
+                    
+                }
+
+            //} catch (err) {
+            //}
+        }
+    </script>
+</body>
+</html>

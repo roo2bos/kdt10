@@ -52,6 +52,34 @@ app.post('/fetch', (req, res) => {
 
     // 의도적으로 에러 발생
     // res.status(400).send('error msg!');
+});
+
+
+app.get('/prac1', (req, res) => {
+    res.render('prac1');
+})
+app.get('/join', (req, res) => {
+    console.log(req.query);
+    res.send(req.query);
+})
+app.get('/prac2', (req, res) => {
+    res.render('prac2');
+})
+app.post('/login', (req, res) => {
+    const dbData = {
+        id:'홍길동',
+        pw:'1111'
+    }
+    
+    console.log('login page req: ',req.body);
+    const { id , pw } = req.body;
+    if (dbData.id == id && dbData.pw == pw) {
+        // res.send('성공');
+        res.send({userInfo: req.body, isSuccess:true});
+    }else{
+        // res.status(400).send('실패');
+        res.send({isSuccess:false});
+    }
 })
 
 app.listen(PORT, () => {
