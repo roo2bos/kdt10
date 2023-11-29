@@ -88,3 +88,226 @@ select * from customer where addr like '대한민국%' and birth >= '2000-01-01'
 select * from customer where addr like '미국%' or addr like '영국%';
 -- 휴대폰 번호 마지막 자리가 4가 아닌 고객 검색
 select * from customer where phone not like '%4';
+
+
+
+-- < ORDER BY > 
+-- order by 없음: pk 기준 오름차순 정렬
+select * from customer;
+
+select * from customer order by custname;
+
+select * from customer order by custname desc;
+
+-- where 절과 order by 함께 사용 (단, 이 때 order by 가 where 보다 뒤에 위치해야 함)
+-- 2000년생 이후 출생자 중에서 주소를 기준으로 내림차순 검색
+select * from customer where birth >= '2000-01-01' order by addr desc;
+-- select * from customer order by addr desc where birth >= '2000-01-01'; -- error: 구문 순서 오류
+
+
+-- 2000년생 이후 출생자 중에서 주소를 기준으로 내림차순 그리고 아이디를 기준으로 내림차순 검색
+select * from customer where birth >= '2000-01-01' order by addr desc, custid desc;
+
+-- 2000년생 이후 출생자 중에서 주소를 기준으로 오름차순 그리고 아이디를 기준으로 내림차순 검색
+select * from customer where birth >= '2000-01-01' order by addr, custid desc;
+
+-- < LIMIT >
+-- 행의 개수를 제한
+select * from customer where birth >= '2000-01-01' limit 2;
+select * from customer limit 3;
+
+-- < 집계 함수 > 
+-- 계산하여 어떤 값을 리턴하는 "함수"
+-- group by 절과 함께 쓰이는 케이스가 많음
+select * from orders;
+
+-- 주문 테이블에서 상품의 총 판매 개수 검색
+select sum(amount) from orders;
+
+-- 주문 테이블에서 총 판매 개수 검색 + 의미있는 열이름으로 변경 
+select sum(amount) as 'total_amount' from orders;
+
+-- 주문 테이블에서 총 판매 개수, 평균 판매 개수, 상품 최저가, 상품 최고가 검색
+-- avg_amount, min_price, max_price
+select sum(amount) as 'total_amount', 
+	avg(amount) as 'avg_amount', 
+	min(price) as 'min_amount', 
+	max(price) as 'max_amount' 
+from orders;
+    
+-- 주문 테이블에서 총 주문 건수 (= 튜플 개수)
+select count(*) from orders;
+
+-- 주문 테이블에서 주문한 고객 수 (중복 없이, distinct: 중복 제거)
+select count(distinct custid) from orders;
+
+
+-- < GROUP BY >
+-- "~별로"
+
+-- 고객별로 주문한 주문 건수 구하기
+select custid, count(*) from orders group by custid;
+
+-- 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount) from orders group by custid;
+
+-- 고객별로 주문한 총 주문액 구하기
+select custid, sum(price * amount) from orders group by custid;
+
+-- 상품별로 판매 개수 구하기
+select prodname, sum(amount) from orders group by prodname;
+
+-- < HAVING > 
+-- group by 절 이후 추가 조건
+
+-- 총 주문액이 10000원 이상인 고객에 대해서 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount), sum(price * amount) from orders 
+	group by custid 
+	having sum(price * amount) >= 10000;
+
+/* select custid, sum(amount), sum(price * amount) from orders 
+	where sum(price * amount) >= 10000
+	group by custid; -- error code 1111. where절은 개별 행에 대한 조건을 검사함, 집계함수 사용X */
+	
+-- 총 주문액이 10000원 이상인 고객에 대해서 고객별로 주문한 상품 총 수량 구하기 
+-- (단, custid가 'bunny'인 고객은 제외하고 출력할 것)
+-- where, group by, having 모두 사용한 예시
+select custid, sum(amount), sum(price * amount) from orders 
+	where custid != 'bunny'
+	group by custid 
+	having sum(price * amount) >= 10000;
+    
+-- group by 주의 사항
+-- select 절에서 group by 에서 사용한 속성과 집계함수만 사용 가능
+-- 고객별로 주문한 주문 건수 구하기
+select custid, count(*) from orders group by custid;
+
+
+/*
+where vs. having
+
+having
+- 그룹에 대해서 필터링 (그래서 group by 함께 쓰임)
+- group by 보다 뒤에 위치
+- 집계함수랑 함께 사용 가능
+
+where
+- 각각의 행을 필터링
+- group by 보다 앞에 위치
+- 집계 함수 사용 X
+*/
+
+create table orders (
+	orderid int primary key auto_increment,
+    custid char(10) not null, -- FK
+    prodname char(6) not null,
+    price int not null,
+    amount smallint not null,
+    foreign key (custid) references customer(custid) on update cascade on delete cascade
+);
+
+INSERT INTO orders VALUES(NULL, 'jy9987', '프링글스', 3500, 2);
+INSERT INTO orders VALUES(NULL, 'kiwi', '새우깡', 1200, 1);
+INSERT INTO orders VALUES(NULL, 'hello', '홈런볼', 4200, 2);
+INSERT INTO orders VALUES(NULL, 'minjipark', '맛동산', 2400, 1);
+INSERT INTO orders VALUES(NULL, 'bunny', '오감자', 1500, 4);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '양파링', 2000, 1);
+INSERT INTO orders VALUES(NULL, 'hello', '자갈치', 1300, 2);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '감자깡', 1200, 4);
+INSERT INTO orders VALUES(NULL, 'bunny', '죠리퐁', 1500, 3);
+INSERT INTO orders VALUES(NULL, 'kiwi', '꼬깔콘', 1700, 2);
+INSERT INTO orders VALUES(NULL, 'hello', '버터링', 4000, 2);
+INSERT INTO orders VALUES(NULL, 'minjipark', '칙촉', 4000, 1);
+INSERT INTO orders VALUES(NULL, 'wow123', '콘초', 1700, 3);
+INSERT INTO orders VALUES(NULL, 'imminji01', '꼬북칩', 2000, 2);
+INSERT INTO orders VALUES(NULL, 'bunny', '썬칩', 1800, 5);
+INSERT INTO orders VALUES(NULL, 'kiwi', '고구마깡', 1300, 3);
+INSERT INTO orders VALUES(NULL, 'jy9987', '오징어집', 1700, 5);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '바나나킥', 2000, 4);
+INSERT INTO orders VALUES(NULL, 'imminji01', '초코파이', 5000, 2);
+
+-- 테이블을 삭제할 경우 삭제 순서!
+-- customer table, orders, table customer.custid 를 기준으로 '관계'를 맺음
+-- 만약에 orders 테이블이 있는데, customer 테이블을 삭제(drop)하면?
+-- orders 테이블은 어떤 고객의 생일 정보를 알고 싶어도 customer 테이블 자체가 날라갔기 때문에 알 수 X
+-- pk-fk 연결된 테이블은 외래키가 설정된 테이블 (참조 테이블) 먼저 삭제
+-- (1) orders table 삭제 -> (2) customer 테이블 삭제
+
+select * from orders;
+
+-- 주문 테이블에서 상품의 총 판매 개수 검색
+select sum(amount) from orders;
+
+-- 주문 테이블에서 상품의 총 판매 개수 검색 + 의미있는 열 이름으로 변경
+select sum(amount) as 'total_amount' from orders;
+
+-- 주문 테이블에서 총 판매 개수, 평균 판매 개수, 상품 최저가, 상품 최고가 검색
+-- total_amount, avg_amount, min_price, max_price
+select sum(amount) as 'total_amount', avg(amount) as 'avg_amount',
+min(price) as 'min_price', max(price) as 'max_price' from orders;
+
+-- 주문 테이블에서 총 주문 건수 (= orders 튜플 개수)
+select count(*) from orders;
+-- 주문 테이블에서 주문한 고객 수(중복 없이, distinct: 중복 제거)
+select count(distinct custid) from orders;
+
+-- group by 
+
+-- 고객별로 주문한 주문 건수 검색
+select custid, count(*) from orders group by custid;
+
+-- 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount) from orders group by custid;
+
+-- 고객별로 주문한 총 주문액 구하기
+select custid, sum(price * amount) from orders group by custid;
+
+select * from orders;
+
+-- 상품별로 판매 개수 구하기
+select prodname, sum(amount) from orders group by prodname;
+
+-- having
+-- grop	by 절 이후에 추가 조건
+
+-- 총 주문액이 10,000원 이상인 고객에 대해서, 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount), sum(price * amount) from orders group by custid
+having sum(price * amount) >= 10000;
+
+-- where로 총 주문액 검사
+-- 에러남
+/*
+select custid, sum(amount), sum(price * amount), from orders 
+-where sum(price * amount) >= 10000
+group by custid;
+*/
+
+-- 위랑 동일한 조건 _+ 단, custid가 'bunny'인 고객 제외
+-- where + group by + having 모두 사용한 예시
+select custid, sum(price * amount) from orders 
+where custid != 'bunny' 
+group by custid
+having sum(price * amount) >= 10000;
+
+
+select custid, sum(amount), sum(price * amount) from orders 
+group by custid
+having sum(price * amount) >= 10000 and custid != 'bunny';
+-- group by 주의 사항
+-- select 절에서 group by 에서 사용한 속성과 집계함수만 사용 가능alter
+
+-- update
+-- 수정: update 테이블명, set 필드1=값1 where 필드2=조건2;
+-- custid가 happy인 고객의 주소를 대한민국 서울로 변경
+update customer set addr = '대한민국 서울' where custid = 'happy';
+select * from customer;
+
+-- delete
+-- 삭제 : delete from 테이블명 where 필드1=값1;
+-- custid가 happy인 고객의 정보를 테이블에서 삭제
+delete from customer where custid = 'happy';
+
+-- 고객 테이블에서 'kiwi' 고객을 삭제 했을때, 주문 테이블에서 'kiwi' 고객의 주문 정보가 함께 삭제 되는지?
+delete from customer where custid = 'kiwi';
+
+
