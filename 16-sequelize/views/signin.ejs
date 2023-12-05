@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./component/head.ejs',{title:'로그인'})  %>
+</head>
+<body>
+    <!-- 로그인 버튼 클릭 성공시 profile.ejs 에서 특정 유저 정보를 보여줘야 하기 때문에 -->
+    <!-- 로그인 성공시 프로필 페이지로 이동할 폼 -->
+    <form method="post" action="/user/profile" name="currentForm" >
+        <input type="hidden" name="id">
+    </form>
+    <form name="form" class="container" onsubmit="return false">
+        <%- include('./component/header.ejs',{blind:false})  %>
+        
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="userid" id="userid" placeholder="아이디" required value="hong">
+            <label for="floatingInput">아이디</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" name='pw' id="pw" placeholder="비밀번호" required value="1122">
+            <label for="floatingPassword">비밀번호</label>
+        </div>
+        <button type="submit" class="btn btn-primary my-3" onclick="signin();">로그인</button>
+        <div class="resultbox"></div>
+    </form>
+</body>
+</html>

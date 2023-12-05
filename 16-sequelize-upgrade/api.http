@@ -1,0 +1,10 @@
+@server = http://localhost:8000
+
+### 전체 선수 조회
+GET {{server}}/players
+
+### 전체 프로필 조회
+GET {{server}}/profile
+
+### 전체 팀 조회
+GET {{server}}/team
