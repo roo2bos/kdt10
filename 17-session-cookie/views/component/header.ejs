@@ -1,0 +1,13 @@
+<div class="header d-flex justify-content-between align-items-end">
+    <div class="d-flex align-items-end gap-1">
+        <h3><a href="/user">NAVER</a> </h3>
+        <div class="loading spinner-border mb-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <p>
+        <% if(!isSuccess){  %>
+            <a href="/user/signup">회원가입</a>
+        <% } %>
+    </p>
+</div>
