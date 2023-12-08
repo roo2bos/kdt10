@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS S3</title>
+    <!-- axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        img {
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <input type="file" id="files" multiple="multiple" onchange="thumb()"><br>
+        이미지 미리 보기:
+        <br>
+        <span class="thumb"></span>
+        <br>
+        <button type="button" onclick="fileUpload()">업로드</button>
+        <br>
+        업로드된 이미지들:
+        <!-- 업로드 되면 보여줄 곳 -->
+        <div class="result"></div>
+    </form>
+
+    <script>
+        const resultBox = document.querySelector('.result');
+        function thumb(event) {
+            let thumbBox = document.querySelector('.thumb');
+            let imgs = document.querySelector('#files').files;
+            for (var image of imgs) {
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    var img = document.createElement("img");
+                    img.src = event.target.result;
+                    thumbBox.append(img);
+                };
+                console.log(image);
+                reader.readAsDataURL(image);
+            }
+        }
+        async function fileUpload() {
+            const file = document.querySelector('#files');
+            console.log(file.files); // [ {}, {} ]
+
+            const formData = new FormData();
+            //  파일 여러개니까 반복문 사용
+            for (let i = 0; i < file.files.length; i++) {
+                formData.append('files', file.files[i]);
+            }
+
+            //   axios 요청
+            try {
+                const res = await axios({
+                    method: 'POST',
+                    url: '/upload',
+                    data: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                console.log(res.data);
+                res.data.forEach((v, i) => {
+                    const img = document.createElement("img");
+                    img.src = v.location;
+                    document.querySelector('.result').appendChild(img);
+                })
+            } catch (err) {
+                console.log('err >', err);
+            }
+        }
+    </script>
+</body>
+</html>
