@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./include.ejs',{title:'Login'})  %>
+    <style>
+        .login-box {
+            width: 20rem;
+            max-width: 90%;
+            box-shadow: 0 0 10px #0003;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            margin: 50px auto;
+        }
+        .login-box p{
+            color: #aaa;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./header.ejs',{isLogin:false})  %>
+    <div class="login-box">
+        <h1>로그인</h1>
+        <p>
+            참고 아이디 : <b>aaaa</b><br>
+            비밀번호 : <b>1111</b>
+        </p>
+        <form method="post" action="/login" >
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="id">ID</span>
+                <input type="text" class="form-control" aria-label="id" aria-describedby="id" name="id" value="aaaa">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="pw">PW</span>
+                <input type="password" class="form-control" aria-label="pw" aria-describedby="pw" name="pw" value="1111">
+            </div>
+            <button class="btn btn-dark">로그인</button>
+        </form>
+        <a href="/">Home 으로</a>
+    </div>
+</body>
+</html>

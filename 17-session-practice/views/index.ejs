@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('./include.ejs',{title:'Home'})  %>
+</head>
+<body>
+    <%- include('header') %>
+
+    <p class="my-5 text-center">
+    <% if(isLogin){ %>
+        <%= user %>님 환영 합니다
+    <% }else{ %>
+            아직 로그인 하지 않았습니다
+    <% } %>
+    </p>
+</body>
+</html>
