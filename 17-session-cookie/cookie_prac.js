@@ -17,21 +17,11 @@ app.use(cookieParser('mySecretKey'));
 
 const cookieConfig = {
     httpOnly: true,
-    maxAge: 86400, // 하루
+    maxAge: 1000 * 60 * 60 * 24, // 초단위 + 초 + 분 + 시간
     signed:true
 }
-
-
-
 app.get('/', (req, res) => {
     console.log('get isPop: ',req.signedCookies.popup);
-    /* if(req.signedCookies.popup==undefined){
-        res.render('index_release', {popup:true});
-        console.log('쿠키 없다')
-    }else{
-        res.render('index_release', {popup:false});
-        console.log('쿠키 있다')
-    } */    
     res.render('index_cookie', {popup:req.signedCookies.popup});
 });
 
@@ -39,17 +29,13 @@ app.get('/', (req, res) => {
 app.post('/setCookie', (req, res) => {
     // TODO: 쿠키 생성
     // 쿠키 이름: 'popup', 쿠키 값: 'hide'
-    if(req.body.cookie){
-        res.cookie('popup','hide', cookieConfig);
-        res.send({popup:true});
-    }else{
-        res.send({popup:false});
-    }
+    res.cookie('popup','hide', cookieConfig);
+    res.send('쿠키 설정 완료!');
 });
 
 app.post('/clearCookie', (req, res) => {
     res.clearCookie('popup','hide', cookieConfig);
-    res.send('clear cookie!');
+    res.send('쿠키 삭제 완료!');
 });
 
 app.listen(PORT, () => {
