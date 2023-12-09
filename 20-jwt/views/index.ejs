@@ -11,6 +11,7 @@
 <body>
     <h1>JWT 실습</h1>
     <div id="info"></div>
+    <p>메인 입니다</p>
     <script>
         // index.ejs가 렌더될때, 로그인한 유저인지 아닌지 판별
         // JWT를 이용해서(토큰)
@@ -36,7 +37,7 @@
                         console.log('index res: ', res.data);
                         if(res.data.isVerify){
                             data=`
-                            <p>${res.data.name}님 환영합니다.</ㅔ>
+                            <p>${res.data.name}님 환영합니다.</p>
                             <button type="button" onclick="logout()">로그아웃</button>
                             `;
                         }else{
