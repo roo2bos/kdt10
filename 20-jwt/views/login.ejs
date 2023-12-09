@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>로그인</h1>
+    <form name="login-form">
+        <input type="text" name="id" id="id" placeholder="ID" value="banana"><br>
+        <input type="password" name="pw" id="pw" placeholder="PW" value="1111">
+        <button type="button" onclick="login()">로그인</button>
+    </form>
+    <script>
+        async function login(){
+            const form = document.forms['login-form'];
+            try{
+                const res = await axios({
+                    method:'post',
+                    url:'/login',
+                    data:{
+                        id: form.id.value,
+                        pw: form.pw.value,
+                    }
+                })
+                console.log('login res: ', res.data);
+                if(res.data.isLogin){
+                    localStorage.setItem('login',res.data.token);
+                    location.href = '/';
+                }else{
+                    alert(res.data.msg);
+                    form.reset();
+                }
+            }catch(err){
+                console.log('err: ',err);
+            }
+        }
+    </script>
+</body>
+</html>

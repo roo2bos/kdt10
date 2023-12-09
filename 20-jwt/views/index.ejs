@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>JWT 실습</h1>
+    <div id="info"></div>
+    <script>
+        // index.ejs가 렌더될때, 로그인한 유저인지 아닌지 판별
+        // JWT를 이용해서(토큰)
+        // 토근이 있다면, 로그인 O <-> 토큰이 없다면, 로그인 X
+        // 토큰 O -> axios 요청으로 유저 정보를 받아서 띄워줌
+        // 토큰 X -> login 페이지 링크 띄워줌
+        (
+            async function (){
+                const token = localStorage.getItem('login');
+                const infoBox = document.getElementById('info');
+                let data = '';
+                try{
+                    if(!token){
+                        data = `<a href='/login'>로그인</a>`;
+                    }else{
+                        const res = await axios({
+                            method: 'post',
+                            url: '/token',
+                            headers:{
+                                Authorization:`Bearer ${token}`,
+                            }
+                        })
+                        console.log('index res: ', res.data);
+                        if(res.data.isVerify){
+                            data=`
+                            <p>${res.data.name}님 환영합니다.</ㅔ>
+                            <button type="button" onclick="logout()">로그아웃</button>
+                            `;
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    }
+                    infoBox.innerHTML = data;
+                } catch (err){
+                    console.log('err :', err);
+                }
+            }
+        )();
+        function logout(){
+            console.log('d')
+            localStorage.clear();
+            location.reload();
+
+        }
+    </script>
+</body>
+</html>
