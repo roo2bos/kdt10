@@ -64,11 +64,12 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                console.log(res.data);
-                res.data.forEach((v, i) => {
+                console.log(res.data);//[{},{}] => location: src 속성값으로
+                res.data.forEach((el) => {
                     const img = document.createElement("img");
-                    img.src = v.location;
-                    document.querySelector('.result').appendChild(img);
+                    img.src = el.location;
+                    img.alt = el.originalname;
+                    resultBox.appendChild(img);
                 })
             } catch (err) {
                 console.log('err >', err);
