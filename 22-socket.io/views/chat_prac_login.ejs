@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>socket.io</title>
+		<!-- socket.io cdn -->
+		<script src="/socket.io/socket.io.js"></script>
+		<style>
+			:root {
+				--color: #02b479;
+			}
+			h1 {
+				font-size: 2rem;
+				text-align: center;
+			}
+			ul {
+				height: 200px;
+				overflow: auto;
+				padding: 1rem;
+				border-radius: 10px;
+				background-color: var(--color);
+			}
+			ul::-webkit-scrollbar {
+				width: 5px;
+				height: 8px;
+				margin: 10px;
+				background-color: #aaa; /* or add it to the track */
+			}
+
+			/* Add a thumb */
+			ul::-webkit-scrollbar-thumb {
+				background: rgba(255, 255, 255, 0.4);
+			}
+			li {
+				list-style: none;
+				margin: 0.5rem 1rem 0.5rem 0;
+				padding: 0;
+			}
+			.me {
+				margin: 0.5rem 0 0.5rem 1rem;
+				text-align: right;
+			}
+			.me span {
+				background: #ff0;
+			}
+			.secret span {
+				background-color: #c796c8;
+			}
+			li span {
+				display: inline-block;
+				padding: 0.5rem 1rem;
+				border-radius: 5px;
+				background-color: #fff;
+			}
+			li.notice {
+				text-align: center;
+				color: #00764f;
+			}
+			form {
+				max-width: 500px;
+				margin: 0 auto;
+			}
+			.loginInput {
+				display: grid;
+				grid-template-columns: 3fr 1fr;
+				gap: 5px;
+			}
+			.input {
+				display: grid;
+				display: none;
+				grid-template-columns: 1fr 3fr 1fr;
+				gap: 5px;
+			}
+			input {
+				padding: 0.5rem;
+				border: 1px solid var(--color);
+				border-radius: 5px;
+				background-color: #02b4792b;
+			}
+			input::placeholder {
+				color: var(--color);
+			}
+			button {
+				color: #fff;
+				cursor: pointer;
+				border-radius: 5px;
+				border: 1px solid var(--color);
+				background: var(--color);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>My Chat</h1>
+
+		<!-- [실습 1] 각 버튼 누를때 마다 서버로 메세지 보내기 -->
+		<form onsubmit="return false">
+			<ul id="server-result"></ul>
+
+			<div class="loginInput">
+				<input type="text" id="name" placeholder="사용할 이름" />
+				<button onclick="login(this);">로그인</button>
+			</div>
+			<div class="input">
+				<select id="uid">
+					<option value="all">전체</option>
+				</select>
+				<input type="text" id="msg" placeholder="메세지를 입력해주세요" />
+				<button onclick="send(this);">전송</button>
+			</div>
+		</form>
+		<script>
+			//소켓 사용을 위한 객체 생성
+			const socket = io.connect();
+			const ul = document.querySelector('#server-result');
+			const select = document.querySelector('#uid');
+			const userArr = [];
+			socket.on('connect', () => {
+				console.log('[클라이언트 연결 완료]socket.id: ', socket.id);
+			});
+			function login(e) {
+				// e.preventDefault();
+				const name = document.querySelector('#name').value;
+				// const msg = document.querySelector('#msg').value;
+				// userArr.push({ name: name, id: socket.id });
+
+				console.log('asdf');
+				socket.emit('login', { name: name, id: socket.id });
+				// document.forms[0].name.value = '';
+			}
+			function send(e) {
+				// e.preventDefault();
+				const id = select.value;
+				const uid = document.querySelector('#uid').value;
+				const msg = document.querySelector('#msg').value;
+				if (id == 'all') {
+					const name = document.querySelector('#name').value;
+					socket.emit('user', { who: name, msg: msg, id: socket.id });
+				} else {
+					const name = select.options[select.selectedIndex].text;
+					socket.emit('secret', { who: name, msg: msg, id: uid });
+				}
+				document.forms[0].msg.value = '';
+			}
+
+			socket.on('login', (data) => {
+				console.log('login data:', data);
+				const loginInput = document.querySelector('.loginInput');
+				const input = document.querySelector('.input');
+				if (!data.isConnect) {
+					alert(data.msg);
+					return;
+				}
+				if (socket.id == data.id) {
+					// 다른탭에서 로그인시 현재 탭도 바뀌는거 방지.
+					loginInput.style.display = 'none';
+					input.style.display = 'grid';
+				} else {
+					data.users.forEach((data, i) => {
+						console.log(data);
+						const name = document.querySelector('#name').value;
+						if (data.name != name) {
+							select.insertAdjacentHTML('beforeend', `<option value="${data.id}">${data.name}</option>`);
+						} else {
+							/* select.insertAdjacentHTML('beforeend', `<option value="${data.id}" disabled>${data.name}(나)</option>`); */
+						}
+					});
+					if (window.getComputedStyle(input, null).display == 'none') {
+						loginInput.style.display = 'grid';
+						input.style.display = 'none';
+					} else {
+						loginInput.style.display = 'none';
+						input.style.display = 'grid';
+					}
+				}
+			});
+			socket.on('user', (data) => {
+				console.log('user data:', data);
+				ul.insertAdjacentHTML('beforeend', `<li class='me'><span>${data.who}: ${data.msg}</span></li>`);
+			});
+			socket.on('secret', (data) => {
+				console.log('user data:', data);
+				ul.insertAdjacentHTML('beforeend', `<li class='secret'><span>${data.who}: ${data.msg}</span></li>`);
+			});
+			socket.on('other', (data) => {
+				console.log('other data:', data);
+				console.log(socket.id == data.id);
+				if (socket.id != data.id) {
+					ul.insertAdjacentHTML('beforeend', `<li class='other'><span>${data.who}: ${data.msg}</span></li>`);
+				}
+			});
+
+			// [실습3]입장
+			socket.on('notice', (data) => {
+				console.log('notice messsage: ', data.msg);
+				document.querySelector('ul').insertAdjacentHTML('beforeend', `<li class='notice'>${data.msg}</li>`);
+			});
+
+			//[실습4]
+			socket.on('whoMsg', (msg) => {
+				console.log('whoMsg', msg);
+				document.querySelector('ul').insertAdjacentHTML('beforeend', `<li class='notice'>${msg}</li>`);
+			});
+		</script>
+	</body>
+</html>
