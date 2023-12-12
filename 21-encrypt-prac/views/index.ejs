@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('./head') %>
+	<body>
+		<h1>회원가입, 로그인, 회원정보수정 실습 (with. 세션)</h1>
+
+		<!-- TODO: 세션 유무(back에서 data 키값으로 던지고 있음)-->
+		<div class="welcomeBox"></div>
+		<br />
+		<a href="/">홈</a>
+		<span class="infoBox"></span>
+		<a href="/users">전체회원</a>
+		<!-- TODO: 세션이 있어야 내 프로필 링크 보이기 -->
+		<a href="/profile">내 프로필</a>
+		<script>
+			(async function () {
+				const token = localStorage.getItem('loginToken');
+				const welcomeBox = document.querySelector('.welcomeBox');
+				const infoBox = document.querySelector('.infoBox');
+				let welcomeData = '';
+				let infoData = '';
+				if (!token) {
+					welcomeData = `<p>로그인을 해주세요</p>`;
+					infoData = `<a href='/register'>회원가입</a> <a href='/login'>로그인</a>`;
+				} else {
+					const res = await axios({
+						method: 'post',
+						url: '/token',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					});
+					console.log('프론트 isVerify: ', res.data.result);
+					if (res.data.result) {
+						welcomeData = `<p>${res.data.name}님 환영합니다.</p>`;
+						infoData = `
+              <a href="/logout" onclick="logout()">로그아웃</a>
+            `;
+					} else {
+						welcomeData = `<p>로그인을 해주세요</p>`;
+						infoData = `<a href='/register'>회원가입</a> <a href='/login'>로그인</a>`;
+						// alert(res.data.msg);
+					}
+				}
+				welcomeBox.innerHTML = welcomeData;
+				infoBox.innerHTML = infoData;
+			})();
+			function logout() {
+				localStorage.clear();
+				// location.reload();
+			}
+		</script>
+	</body>
+</html>

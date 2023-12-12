@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('./head') %>
+	<body>
+		<h1><%=name%>님 환영합니다.</h1>
+		<ul>
+			<% for (let user of users) { %>
+			<li><%= user.name%></li>
+			<% } %>
+		</ul>
+		<a href="/">홈</a>
+		<script>
+			(async function () {
+				const token = localStorage.getItem('loginToken');
+				if (token) {
+					const res = await axios({
+						method: 'post',
+						url: '/token',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}); /*
+					console.log('프론트 isVerify: ', res.data.result);
+					if (res.data.result) {
+						welcomeData = `<p>${res.data.name}님 환영합니다.</p>`;
+						infoData = `
+              <a href="/" onclick="logout()">로그아웃</a>
+            `;
+					} else {
+						alert(res.data.msg);
+					} */
+				}
+			})();
+		</script>
+	</body>
+</html>
