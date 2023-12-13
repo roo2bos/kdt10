@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>socket.io</title>
+		<!-- socket.io cdn -->
+		<script src="/socket.io/socket.io.js"></script>
+		<style>
+			:root {
+				--color: #02b479;
+			}
+			h1 {
+				text-align: center;
+			}
+			ul {
+				height: 300px;
+				overflow: auto;
+				padding: 1rem;
+				border-radius: 10px;
+				background-color: var(--color);
+			}
+			ul::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+				background: rgba(0, 0, 0, 0);
+			}
+
+			ul::-webkit-scrollbar-button:start:decrement,
+			ul::-webkit-scrollbar-button:end:increment {
+				display: block;
+				background: rgba(0, 0, 0, 0);
+			}
+
+			ul::-webkit-scrollbar-track {
+				background: rgba(0, 0, 0, 0);
+				-webkit-border-radius: 10px;
+				border-radius: 10px;
+			}
+
+			ul::-webkit-scrollbar-thumb {
+				height: 50px;
+				width: 50px;
+				background: rgba(0, 0, 0, 0.2);
+				-webkit-border-radius: 8px;
+				border-radius: 8px;
+				-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+			}
+			li {
+				list-style: none;
+				margin: 0.5rem 1rem 0.5rem 0;
+				padding: 0;
+			}
+			.me {
+				margin: 0.5rem 0 0.5rem 1rem;
+				text-align: right;
+			}
+			.me span {
+				background: #ff0;
+			}
+			li span {
+				display: inline-block;
+				padding: 0.5rem 1rem;
+				border-radius: 5px;
+				background-color: #fff;
+			}
+			li.notice {
+				text-align: center;
+				color: #00764f;
+			}
+			form {
+				max-width: 500px;
+				margin: 0 auto;
+			}
+			.input {
+				display: grid;
+				grid-template-columns: 1fr 3fr 1fr;
+				gap: 5px;
+			}
+			input {
+				padding: 0.5rem;
+				border: 1px solid var(--color);
+				border-radius: 5px;
+				background-color: #02b4792b;
+			}
+			input::placeholder {
+				color: var(--color);
+			}
+			button {
+				color: #fff;
+				cursor: pointer;
+				border-radius: 5px;
+				border: 1px solid var(--color);
+				background: var(--color);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>My Chat</h1>
+
+		<!-- [실습 1] 각 버튼 누를때 마다 서버로 메세지 보내기 -->
+		<form o>
+			<ul id="server-result"></ul>
+			<div class="input">
+				<input type="text" id="name" required placeholder="이름" />
+				<input
+					type="text"
+					id="msg"
+					required
+					placeholder="메세지를 입력해주세요"
+					onkeydown="if(window.event.keyCode == 13){send()}"
+				/>
+				<button type="button" onclick="send()">전송</button>
+			</div>
+		</form>
+		<script>
+			//소켓 사용을 위한 객체 생성
+			const socket = io.connect();
+			const ul = document.querySelector('#server-result');
+			socket.on('connect', () => {
+				console.log('[클라이언트 연결 완료]socket.id: ', socket.id);
+			});
+
+			// [실습3]입장
+			socket.on('notice', (data) => {
+				console.log('notice messsage: ', data.msg);
+				document.querySelector('ul').insertAdjacentHTML('beforeend', `<li class='notice'>${data.msg}</li>`);
+			});
+
+			//[실습4]
+			//실습 4-1 서버에 보내기
+			function send() {
+				const data = {
+					id: socket.id,
+					msg: document.getElementById('msg').value,
+				};
+				const chatForm = document.forms[0];
+				if (!chatForm.checkValidity()) {
+					chatForm.reportValidity();
+					return;
+				}
+				document.forms[0].msg.value = '';
+				socket.emit('send', data);
+			}
+			//실습 4-2 서버에서 받아서 보여주기
+			socket.on('newMessage', (data) => {
+				console.log('newMessage data:', data);
+				const li = document.createElement('li');
+				const span = document.createElement('span');
+				if (data.id == socket.id) {
+					li.classList.add('me');
+				} else {
+					li.classList.add('other');
+				}
+				span.textContent = `${data.id}: ${data.msg}`;
+				li.append(span);
+				ul.append(li);
+
+				ul.scrollTop = ul.scrollHeight;
+				//ul.insertAdjacentHTML('beforeend', `<li class='me'><span>${data.who}: ${data.msg}</span></li><li class='other'><span>${data.who}: ${data.msg}</span></li>`);
+			});
+		</script>
+	</body>
+</html>

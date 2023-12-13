@@ -87,9 +87,9 @@
 		<form>
 			<ul id="server-result"></ul>
 			<div class="input">
-				<input type="text" id="name" placeholder="이름" />
-				<input type="text" id="msg" placeholder="메세지를 입력해주세요" />
-				<button onclick="send();return false">전송</button>
+				<input type="text" id="name" required placeholder="이름" />
+				<input type="text" id="msg" required placeholder="메세지를 입력해주세요" />
+				<button>전송</button>
 			</div>
 		</form>
 		<script>
@@ -98,44 +98,24 @@
 			const ul = document.querySelector('#server-result');
 			socket.on('connect', () => {
 				console.log('[클라이언트 연결 완료]socket.id: ', socket.id);
-				/* const li = document.createElement('li');
-				li.setAttribute('class', 'notice');
-				li.innerHTML = `${socket.id}님이 입장하셨습니다`;
-				ul.appendChild(li); */
-
-				//hello emit
-				/* function send() {
-				const name = document.querySelector('#name').value;
-				const msg = document.querySelector('#msg').value;
-				const li = document.createElement('li');
-				li.setAttribute('class', 'me');
-				li.innerHTML = `<span>${msg}</span>`;
-				ul.appendChild(li);
-				document.forms[0].msg.value = '';
-				socket.emit('user', { who: name, msg: msg });
-			} */
-				function send() {
+				const chatForm = document.forms[0];
+				chatForm.addEventListener('submit', (event) => {
+					event.preventDefault();
+					if (!chatForm.checkValidity()) {
+						chatForm.reportValidity();
+						return;
+					}
 					const name = document.querySelector('#name').value;
 					const msg = document.querySelector('#msg').value;
-					/* const li = document.createElement('li');
-				ul.insertAdjacentHTML('beforeend', `<li class='me'><span>${name}: ${msg}</span></li>`);
-				 */
-					socket.emit('user', { who: name, msg: msg, id: socket.id });
+					// socket.emit('user', { who: name, msg: msg, id: socket.id });
+					//
+					socket.emit('every', { who: name, msg: msg, id: socket.id });
 					document.forms[0].msg.value = '';
-				}
+				});
 
-				//helloKR
-				/* socket.on('other', (data) => {
-				console.log('other:', data);
-
-				ul.insertAdjacentHTML('beforeend', `<li class='other'><span>${data.who}: ${data.msg}</span></li>`);
-				socket.emit('other', { who: data.who, msg: data.msg });
-			}); */
 				socket.on('user', (data) => {
 					console.log('user data:', data);
 					ul.insertAdjacentHTML('beforeend', `<li class='me'><span>${data.who}: ${data.msg}</span></li>`);
-					// socket.emit('other', { who: data.who, msg: data.msg });
-					// io.emit('other', { who: data.who, msg: data.msg });
 				});
 				socket.on('other', (data) => {
 					console.log('other data:', data);
@@ -148,18 +128,20 @@
 				// [실습3]입장
 				socket.on('notice', (data) => {
 					console.log('notice messsage: ', data.msg);
-					document.querySelector('ul').insertAdjacentHTML(
-						'beforeend',
-						`
-              <li class='notice'>${data.msg}</li>
-            `
-					);
+					document.querySelector('ul').insertAdjacentHTML('beforeend', `<li class='notice'>${data.msg}</li>`);
 				});
 
 				//[실습4]
-				socket.on('whoMsg', (msg) => {
-					console.log('whoMsg', msg);
-					document.querySelector('ul').insertAdjacentHTML('beforeend', `<li class='notice'>${msg}</li>`);
+				socket.on('every', (data) => {
+					console.log('user data:', data);
+					ul.insertAdjacentHTML('beforeend', `<li class='me'><span>${data.who}: ${data.msg}</span></li>`);
+				});
+				socket.on('everyOther', (data) => {
+					console.log('everyOther data:', data);
+					console.log(socket.id == data.id);
+					if (socket.id != data.id) {
+						ul.insertAdjacentHTML('beforeend', `<li class='other'><span>${data.who}: ${data.msg}</span></li>`);
+					}
 				});
 			});
 		</script>
