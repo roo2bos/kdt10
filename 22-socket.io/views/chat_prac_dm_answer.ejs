@@ -175,14 +175,8 @@
 				const span = document.createElement('span');
 				if (data.id == socket.id) {
 					li.classList.add('me');
-					/* li.classList.add('secret'); */
 				} else {
 					li.classList.add('other');
-
-					/* if (data.dm) {
-						li.classList.add('secret');
-						span.textContent = data.dm;
-					} */
 				}
 				if (data.dm) {
 					li.classList.add('secret');
@@ -245,7 +239,8 @@
 				// const option = document.createElement('option');
 				let options = `<option value='all'>전체</option>`;
 
-				//todo: userObjs 반복 돌아서 option xorm cnrk
+				//todo: userObjs 반복 돌아서 option 태그 추가
+				// 1. userObjs : 객체 형태일때
 				// option 태그의 value값 socket.id값
 				/* for (let key in userObjs) {
 					console.log('for in: ', key);
@@ -254,6 +249,7 @@
 						options += `<option value='${key}'>${name}</option>`;
 					}
 				} */
+				// 2. userObjs : 배열 형태일때
 				for (let user of userObjs) {
 					console.log('for of: ', user);
 					// 본인 제외
