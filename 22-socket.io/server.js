@@ -43,13 +43,6 @@ io.on('connection', (socket) => {
 	// 콜백 함수의 인자로 소켓 객체를 제공
 	conn.push(socket.id);
 	console.log(users);
-	/* if (conn.length > 5) {
-		// socket.disconnect();
-		// socket.emit("disconnect");
-		users = [];
-		io.emit('notice', { msg: `최대 참여 수를 초과 하였습니다. 새로고침 해 주세요` });
-		return;
-	} */
 	//socket.id : 소켓 고유 아이디 (브라우저 탭 단위)
 	console.log('서버 연결 완료 : ', socket.id);
 
