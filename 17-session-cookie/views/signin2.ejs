@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<%- include('./component/head.ejs',{title:'로그인'}) %>
+	</head>
+	<body>
+		<!-- 로그인 버튼 클릭 성공시 profile.ejs 에서 특정 유저 정보를 보여줘야 하기 때문에 -->
+		<!-- 로그인 성공시 프로필 페이지로 이동할 폼 -->
+		<form name="currentForm" onsubmit="return false">
+			<input type="hidden" name="userid" />
+		</form>
+
+		<form name="form" class="container" onsubmit="return false">
+			<div class="welcome"></div>
+			<%- include('./component/header.ejs') %> <% if(isSuccess){ %>
+			<div class="welcome">asdf<%= data.name %>님, 환영 합니다</div>
+			<% }else{ %>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="userid" id="userid" placeholder="아이디" required value="hong" />
+				<label for="floatingInput">아이디</label>
+			</div>
+			<div class="form-floating">
+				<input type="password" class="form-control" name="pw" id="pw" placeholder="비밀번호" required value="1122" />
+				<label for="floatingPassword">비밀번호</label>
+			</div>
+			<% } %>
+
+			<div class="btns">
+				<% if(isSuccess){ %>
+				<button type="button" class="btn btn-primary my-3" onclick="signout();">로그아웃</button>
+				<% }else{ %>
+				<button type="submit" class="btn btn-primary my-3" onclick="signin2();">로그인</button>
+				<% } %>
+			</div>
+			<div class="resultbox"></div>
+		</form>
+		<script>
+			async function signin2() {
+				const form = document.forms['form'];
+				const currForm = document.forms['currentForm'];
+				const resultBox = document.querySelector('.resultbox');
+				if (!form.userid.checkValidity() || !form.pw.checkValidity()) {
+					if (!form.userid.checkValidity()) {
+						resultBox.textContent = '아이디는 필수값입니다!';
+					} else {
+						resultBox.textContent = '패스워드는 필수값입니다!';
+					}
+					resultBox.classList.remove('success');
+					resultBox.classList.add('error');
+					return;
+				}
+				try {
+					let datas = {
+						userid: form.userid.value,
+						pw: form.pw.value,
+					};
+					let res = await axios({
+						method: 'post',
+						url: '/user/signin2',
+						data: datas,
+					});
+					console.log('signin: ', res);
+					const { data } = res;
+					if (data.isSuccess) {
+						const { userid, name, pw } = res.data.userInfo;
+						// const currForm = document.forms['currentForm'];
+						// currForm.userid.value= form.userid.value;// currForm.userid.value=userid;
+						// currForm.submit();
+						const resProfil2 = await axios({
+							method: 'post',
+							url: '/user/profile2',
+							data: {
+								userid: form.userid.value,
+							},
+						});
+
+						console.log('front 프로필 다녀온 후:', resProfil2);
+						// const { data, msg } = res.data;
+						document.querySelector('.welcome').innerHTML = `<p>${resProfil2.msg}</p>`;
+						document.querySelector(
+							'.btns'
+						).innerHTML = `<button type="submit" class="btn btn-primary my-3" onclick="signout();">로그아웃!</button>`;
+						document.querySelector('.header p').classList.add('hide');
+						document.querySelectorAll('.form-floating').forEach((v, i) => {
+							v.classList.add('hide');
+						});
+
+						// document.querySelector('.welcome').classList.add('on');
+						// document.querySelector('.welcome').textContent=msg;
+						console.log('resProfil2:', resProfil2);
+						alert('로그인 성공');
+						$loading.classList.add('hide');
+					} else {
+						alert('로그인 실패');
+						form.userid.focus();
+						form.reset();
+					}
+				} catch {}
+			}
+		</script>
+	</body>
+</html>

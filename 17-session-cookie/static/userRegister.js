@@ -17,13 +17,13 @@ function signup() {
         resultBox.classList.add('error');
         return;
     } */
-    if(!form.checkValidity()){ 
+    if(!form.checkValidity()){
         form.reportValidity();
         return;
     }
     axios({
-        method: 'post', 
-        url: '/user/signup', 
+        method: 'post',
+        url: '/user/signup',
         data: data
     }).then((res)=>{
         form.reset();
@@ -55,8 +55,8 @@ async function signin() {
             pw: form.pw.value
         };
         let res = await axios({
-            method: 'post', 
-            url: '/user/signin', 
+            method: 'post',
+            url: '/user/signin',
             data: datas
         });
         console.log('signin: ',res);
@@ -80,12 +80,12 @@ async function signin() {
                 document.querySelectorAll('.form-floating').forEach((v,i)=>{
                     v.classList.add('hide');
                 });
-                
+
                 document.querySelector('.welcome').classList.add('on');
                 document.querySelector('.welcome').textContent=msg;
             }); */
             alert('로그인 성공');
-            $loading.classList.add('hide');
+            // $loading.classList.add('hide');
         } else {
             alert('로그인 실패');
             form.userid.focus();
@@ -94,7 +94,7 @@ async function signin() {
     } catch {
 
     }
-    
+
 }
 
 //회원정보 수정 : profile.ejs
@@ -108,8 +108,8 @@ function edit() {
         return;
     }
     axios({
-        method: 'patch', 
-        url: '/user/profile/edit', 
+        method: 'patch',
+        url: '/user/profile/edit',
         data: {
             id: form.id.value,//sql(patchProfileUser)에서 조회용
             name: form.name.value,
@@ -126,8 +126,8 @@ function leave() {
     const form = document.forms['form'];
     if(!confirm('정말 회원 탈퇴 하시겠습니까?')) return;
     axios({
-        method: 'delete', 
-        url: '/user/profile/delete', 
+        method: 'delete',
+        url: '/user/profile/delete',
         data: {
             id: form.id.value,//sql(patchProfileUser)에서 조회용
         }
