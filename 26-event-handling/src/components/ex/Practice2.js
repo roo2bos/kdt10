@@ -1,5 +1,6 @@
-function Practice(props) {
-  const { evtHandler, colors, fruit, bgc, colorText, content } = props;
+function Practice2(props) {
+  const { evtHandler, data, colors } = props;
+  console.log(data);
   return (
     <div style={{ padding: '20px', lineHeight: 1.5 }}>
       <div
@@ -11,7 +12,7 @@ function Practice(props) {
           fontSize: '5rem',
         }}
       >
-        <img src={fruit} alt="" height="100%" />
+        <img src={data['fruit']} alt="" height="100%" />
         {/* {fruit} */} {/* 에모지 버전 */}
       </div>
       과일 :&nbsp;
@@ -47,8 +48,8 @@ function Practice(props) {
       />
       <p
         style={{
-          backgroundColor: bgc,
-          color: colorText,
+          backgroundColor: data['bgc'],
+          color: data['colorText'],
           textShadow:
             'rgb(255, 255, 255) 1px 1px 0, rgb(255, 255, 255) -1px -1px 0,rgb(255, 255, 255) -1px 1px 0,rgb(255, 255, 255) 1px -1px 0',
           padding: '10px',
@@ -56,9 +57,9 @@ function Practice(props) {
           fontWeight: 'bold',
         }}
       >
-        {content}
+        {data['content']}
       </p>
     </div>
   );
 }
-export default Practice;
+export default Practice2;
