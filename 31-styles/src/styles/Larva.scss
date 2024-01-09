@@ -1,0 +1,86 @@
+$path: '../imgs/';
+.container_larva {
+  position: relative;
+  overflow: hidden;
+  width: 630px;
+  height: 500px;
+  background: #d2f2ff url(#{$path}img.png) 0 100% repeat-x;
+
+  .tree {
+    overflow: hidden;
+    width: 100%;
+    height: 500px;
+    background: url('#{$path}tree.png') 0 100% no-repeat;
+    background-size: auto 500px;
+  }
+  .larva {
+    position: absolute;
+    bottom: 0;
+    left: 204px;
+    width: 500px;
+    height: 105px;
+
+    [class*='body'] {
+      width: 50px;
+      height: 50px;
+      line-height: 100px;
+      text-align: center;
+      border-radius: 50%;
+
+      &.body1 {
+        position: relative;
+        background-color: #1194f6;
+        .eye {
+          width: 20px;
+          height: 20px;
+          background-color: #fff;
+          border-radius: 50%;
+          position: relative;
+          top: 10px;
+          left: 10px;
+          div {
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            position: relative;
+            top: 0;
+            left: 0;
+          }
+        }
+      }
+      &.body2 {
+        position: absolute;
+        top: 34px;
+        left: 28px;
+        background-color: #0c74d5;
+      }
+      &.body3 {
+        position: absolute;
+        top: 54px;
+        left: 60px;
+        background-color: #0543a2;
+      }
+      &.body4 {
+        position: absolute;
+        top: 54px;
+        left: 84px;
+        background-color: #acc5fa;
+      }
+      &.body5 {
+        position: absolute;
+        top: 54px;
+        left: 116px;
+        background-color: #007f97;
+      }
+    }
+  }
+  .grass {
+    position: absolute;
+    bottom: 0;
+    left: 290px;
+    width: 100%;
+    height: 500px;
+    background: url('#{$path}img.png') 0 100% repeat-x;
+  }
+}

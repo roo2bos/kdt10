@@ -1,0 +1,95 @@
+$circle: 20px;
+$distance: $circle;
+@mixin ani($name: ani1, $n: 1, $dr: 3, $delay: 0.3) {
+  @keyframes #{$name} {
+    0% {
+      clip-path: polygon(
+        50% 0,
+        75% 0,
+        100% 0,
+        100% 70%,
+        100% 100%,
+        50% 100%,
+        0 100%,
+        0 70%,
+        0 0,
+        25% 0
+      );
+      transform: rotate(0deg);
+    }
+    100% {
+      clip-path: polygon(
+        50% 0,
+        75% 0,
+        100% 0,
+        100% 70%,
+        100% 100%,
+        50% 100%,
+        0 100%,
+        0 70%,
+        0 0,
+        25% 0
+      );
+      transform: rotate(360deg);
+    }
+    25% {
+      transform: translate($distance * $n, 0) /* rotate(90deg) */;
+    }
+    50% {
+      transform: translate($distance * $n, $distance * $n) /* rotate(180deg) */;
+      // border-radius: 0;
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+    }
+    75% {
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+      transform: translate(0, $distance * $n) /* rotate(270deg) */;
+    }
+  }
+  animation: #{$name} #{$dr}s #{$delay}s infinite;
+}
+
+.wrap {
+  margin: 0 auto;
+  width: $circle * 4;
+  height: $circle * 6;
+}
+[class^='circle'] {
+  position: relative;
+  width: $circle;
+  height: $circle;
+  // border-radius: 50%;
+  &.circle1 {
+    @include ani(ani1, 1, 2);
+    background-color: pink;
+  }
+  &.circle2 {
+    @include ani(ani2, 2, 2);
+    background-color: #00bfff;
+  }
+  &.circle3 {
+    @include ani(ani3, 3, 2);
+    background-color: green;
+  }
+}

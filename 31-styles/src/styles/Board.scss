@@ -1,0 +1,75 @@
+$bg: #ddd;
+$bgOv: hsl(0, 0%, 93%);
+@mixin ellipse {
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: $bg;
+}
+.postList {
+  margin: 0 10px;
+
+  li + li {
+    margin-top: 10px;
+  }
+
+  a {
+    color: #000;
+    text-align: left;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 60px 2fr;
+    transition: 0.3s;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: $bg;
+    text-decoration: none;
+    &:hover {
+      background-color: $bgOv;
+    }
+    span {
+      grid-row: span 2;
+      text-align: right;
+    }
+
+    &:hover strong {
+      text-decoration: underline;
+    }
+    strong {
+      @include ellipse;
+    }
+    p {
+      margin: 0;
+      @include ellipse;
+    }
+  }
+  .loading {
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.postView {
+  margin: 10px;
+  main,
+  footer {
+    text-align: left;
+  }
+}

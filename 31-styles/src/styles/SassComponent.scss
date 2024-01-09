@@ -1,0 +1,50 @@
+@import './variables';
+@import './utils';
+
+.container {
+  display: flex;
+
+  //중첩: 부모 자식 표현 가능
+  .box {
+    @include box(150px);
+
+    // &: 부모 선택자 참조해서 치환
+    &.red {
+      // = .box.red
+      background-color: $color-red;
+    }
+    &.orange {
+      background-color: $color-orange;
+    }
+    &.yellow {
+      background-color: $color-yellow;
+    }
+    &:hover {
+      // - 연산 가능
+      $box-ani: $ani-duration * 2;
+      transform: translateY(-20px);
+      transition: transform $box-ani;
+    }
+  }
+}
+
+.btn {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #000;
+}
+.btn-primary {
+  @extend .btn;
+  border-radius: 10px;
+  background: cornflowerblue;
+  &:hover {
+    background-color: #ffffff95;
+  }
+}
+
+$breakpoint-sm: 360px;
+@media (max-width: #{$breakpoint-sm}) {
+  .container {
+    flex-direction: column;
+  }
+}
